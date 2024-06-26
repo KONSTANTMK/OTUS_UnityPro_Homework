@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace ShootEmUp
 {
@@ -41,7 +42,7 @@ namespace ShootEmUp
             }
         }
 
-        public void FlyBulletByArgs(Args args)
+        public void FlyBulletByArgs(BulletConfig args, Vector2 position, Vector2 velocity)
         {
             if (this.m_bulletPool.TryDequeue(out var bullet))
             {
@@ -52,12 +53,12 @@ namespace ShootEmUp
                 bullet = Instantiate(this.prefab, this.worldTransform);
             }
 
-            bullet.SetPosition(args.position);
+            bullet.SetPosition(position);
             bullet.SetColor(args.color);
-            bullet.SetPhysicsLayer(args.physicsLayer);
+            bullet.SetPhysicsLayer((int)args.physicsLayer);
             bullet.damage = args.damage;
             bullet.isPlayer = args.isPlayer;
-            bullet.SetVelocity(args.velocity);
+            bullet.SetVelocity(velocity*args.speed);
             
             if (this.m_activeBullets.Add(bullet))
             {
@@ -79,16 +80,6 @@ namespace ShootEmUp
                 bullet.transform.SetParent(this.container);
                 this.m_bulletPool.Enqueue(bullet);
             }
-        }
-        
-        public struct Args
-        {
-            public Vector2 position;
-            public Vector2 velocity;
-            public Color color;
-            public int physicsLayer;
-            public int damage;
-            public bool isPlayer;
         }
     }
 }

@@ -19,5 +19,7 @@ namespace ShootEmUp
 
         [SerializeField]
         public float speed;
+        [SerializeField]
+        public bool isPlayer;
     }
 }

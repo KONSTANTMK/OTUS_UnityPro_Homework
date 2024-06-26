@@ -14,12 +14,12 @@ namespace ShootEmUp
 
         private void OnEnable()
         {
-            this.character.GetComponent<CharacterController>().OnDeath += this.gameManager.FinishGame;
+            this.character.GetComponent<HitPointsComponent>().hpEmpty += this.gameManager.FinishGame;
         }
 
         private void OnDisable()
         {
-            this.character.GetComponent<CharacterController>().OnDeath -= this.gameManager.FinishGame;
+            this.character.GetComponent<HitPointsComponent>().hpEmpty -= this.gameManager.FinishGame;
         }
     }
 }

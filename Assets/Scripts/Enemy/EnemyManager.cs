@@ -9,8 +9,8 @@ namespace ShootEmUp
         [SerializeField]
         private EnemyPool _enemyPool;
 
-        [SerializeField]
-        private BulletSystem _bulletSystem;
+        [SerializeField] private BulletSystem _bulletSystem;
+        [SerializeField] private BulletConfig _bulletConfig;
         
         private readonly HashSet<GameObject> m_activeEnemies = new();
 
@@ -42,17 +42,9 @@ namespace ShootEmUp
             }
         }
 
-        private void OnFire(GameObject enemy, Vector2 position, Vector2 direction)
+        private void OnFire(GameObject enemy, Vector2 position, Vector2 velocity)
         {
-            _bulletSystem.FlyBulletByArgs(new BulletSystem.Args
-            {
-                isPlayer = false,
-                physicsLayer = (int) PhysicsLayer.ENEMY_BULLET,
-                color = Color.red,
-                damage = 1,
-                position = position,
-                velocity = direction * 2.0f
-            });
+            _bulletSystem.FlyBulletByArgs(_bulletConfig, position, velocity);
         }
     }
 }
