@@ -1,28 +1,21 @@
+using System;
+using UnityEditor;
 using UnityEngine;
 
 namespace ShootEmUp
 {
     public sealed class CharacterController : MonoBehaviour
     {
+        public event Action OnDeath;
+        [SerializeField] private HitPointsComponent hitPointsComponent;
+
+
         [SerializeField] private GameObject character; 
         [SerializeField] private GameManager gameManager;
         [SerializeField] private BulletSystem _bulletSystem;
         [SerializeField] private BulletConfig _bulletConfig;
         
         public bool _fireRequired;
-
-        private void OnEnable()
-        {
-            this.character.GetComponent<HitPointsComponent>().hpEmpty += this.OnCharacterDeath;
-        }
-
-        private void OnDisable()
-        {
-            this.character.GetComponent<HitPointsComponent>().hpEmpty -= this.OnCharacterDeath;
-        }
-
-        private void OnCharacterDeath(GameObject _) => this.gameManager.FinishGame();
-
         private void FixedUpdate()
         {
             if (this._fireRequired)
@@ -30,8 +23,8 @@ namespace ShootEmUp
                 this.OnFlyBullet();
                 this._fireRequired = false;
             }
+            
         }
-
         private void OnFlyBullet()
         {
             var weapon = this.character.GetComponent<WeaponComponent>();
@@ -44,6 +37,14 @@ namespace ShootEmUp
                 position = weapon.Position,
                 velocity = weapon.Rotation * Vector3.up * this._bulletConfig.speed
             });
+        }
+        public void TakeDamage(int damage)
+        {
+            hitPointsComponent.TakeDamage(damage);
+            if (!this.hitPointsComponent.IsHitPointsExists())
+            {
+                OnDeath?.Invoke();
+            }
         }
     }
 }

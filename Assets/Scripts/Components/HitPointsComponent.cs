@@ -18,6 +18,7 @@ namespace ShootEmUp
             this.hitPoints -= damage;
             if (this.hitPoints <= 0)
             {
+                Debug.Log("УБИЛ");
                 this.hpEmpty?.Invoke(this.gameObject);
             }
         }
