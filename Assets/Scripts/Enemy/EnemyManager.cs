@@ -44,7 +44,7 @@ namespace ShootEmUp
 
         private void OnFire(GameObject enemy, Vector2 position, Vector2 velocity)
         {
-            _bulletSystem.FlyBulletByArgs(_bulletConfig, position, velocity);
+            _bulletSystem.SpawnBullet(_bulletConfig, position, velocity);
         }
     }
 }

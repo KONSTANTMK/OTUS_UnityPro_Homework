@@ -37,12 +37,12 @@ namespace ShootEmUp
                 var bullet = this.m_cache[i];
                 if (!this.levelBounds.InBounds(bullet.transform.position))
                 {
-                    this.RemoveBullet(bullet);
+                    this.UnspawnBullet(bullet, new GameObject());
                 }
             }
         }
 
-        public void FlyBulletByArgs(BulletConfig args, Vector2 position, Vector2 velocity)
+        public void SpawnBullet(BulletConfig args, Vector2 position, Vector2 velocity)
         {
             if (this.m_bulletPool.TryDequeue(out var bullet))
             {
@@ -53,32 +53,25 @@ namespace ShootEmUp
                 bullet = Instantiate(this.prefab, this.worldTransform);
             }
 
-            bullet.SetPosition(position);
-            bullet.SetColor(args.color);
-            bullet.SetPhysicsLayer((int)args.physicsLayer);
+            bullet.gameObject.transform.position =position;
+            bullet.gameObject.GetComponent<SpriteRenderer>().color=args.color;
+            bullet.gameObject.layer=(int)args.physicsLayer;
             bullet.damage = args.damage;
             bullet.isPlayer = args.isPlayer;
-            bullet.SetVelocity(velocity*args.speed);
+            bullet.GetComponent<Rigidbody2D>().velocity =velocity*args.speed;
             
             if (this.m_activeBullets.Add(bullet))
             {
-                bullet.OnCollisionEntered += this.OnBulletCollision;
+                bullet.GetComponent<Bullet>().OnCollisionEntered += UnspawnBullet;
             }
         }
-        
-        private void OnBulletCollision(Bullet bullet, Collision2D collision)
-        {
-            BulletUtils.DealDamage(bullet, collision.gameObject);
-            this.RemoveBullet(bullet);
-        }
-
-        private void RemoveBullet(Bullet bullet)
+        public void UnspawnBullet(Bullet bullet, GameObject damagable)
         {
             if (this.m_activeBullets.Remove(bullet))
             {
-                bullet.OnCollisionEntered -= this.OnBulletCollision;
                 bullet.transform.SetParent(this.container);
                 this.m_bulletPool.Enqueue(bullet);
+                bullet.GetComponent<Bullet>().OnCollisionEntered -= UnspawnBullet;
             }
         }
     }

@@ -10,13 +10,10 @@ namespace ShootEmUp
     {
         [SerializeField]
         public PhysicsLayer physicsLayer;
-
         [SerializeField]
         public Color color;
-
         [SerializeField]
         public int damage;
-
         [SerializeField]
         public float speed;
         [SerializeField]

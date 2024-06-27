@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    internal static class BulletUtils
+    internal static class BulletDamageController
     {
-        internal static void DealDamage(Bullet bullet, GameObject other)
+        internal static void DealDamage(Bullet bullet, GameObject damagable)
         {
-            if (!other.TryGetComponent(out TeamComponent team))
+            if (!damagable.TryGetComponent(out TeamComponent team))
             {
                 return;
             }
@@ -16,7 +16,7 @@ namespace ShootEmUp
                 return;
             }
 
-            if (other.TryGetComponent(out HitPointsComponent hitPoints))
+            if (damagable.TryGetComponent(out HitPointsComponent hitPoints))
             {
                 Debug.Log("Дамаг");
                 hitPoints.TakeDamage(bullet.damage);

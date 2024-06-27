@@ -5,7 +5,7 @@ namespace ShootEmUp
 {
     public sealed class Bullet : MonoBehaviour
     {
-        public event Action<Bullet, Collision2D> OnCollisionEntered;
+        public event Action<Bullet, GameObject> OnCollisionEntered;
 
         [NonSerialized] public bool isPlayer;
         [NonSerialized] public int damage;
@@ -15,31 +15,11 @@ namespace ShootEmUp
 
         [SerializeField]
         private SpriteRenderer spriteRenderer;
-
+        
         private void OnCollisionEnter2D(Collision2D collision)
         {
             Debug.Log("Пуля попала в "+collision.gameObject.name);
-            this.OnCollisionEntered?.Invoke(this, collision);
-        }
-
-        public void SetVelocity(Vector2 velocity)
-        {
-            this.rigidbody2D.velocity = velocity;
-        }
-
-        public void SetPhysicsLayer(int physicsLayer)
-        {
-            this.gameObject.layer = physicsLayer;
-        }
-
-        public void SetPosition(Vector3 position)
-        {
-            this.transform.position = position;
-        }
-
-        public void SetColor(Color color)
-        {
-            this.spriteRenderer.color = color;
+            this.OnCollisionEntered?.Invoke(this, collision.gameObject);
         }
     }
 }
