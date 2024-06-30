@@ -5,9 +5,10 @@ namespace ShootEmUp
 {
     public sealed class Bullet : MonoBehaviour
     {
-        public event Action<Bullet, GameObject> OnCollisionEntered;
+        public event Action<Bullet> OnCollisionEntered;
 
         [NonSerialized] public bool isPlayer;
+        
         [NonSerialized] public int damage;
 
         [SerializeField]
@@ -18,8 +19,11 @@ namespace ShootEmUp
         
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            Debug.Log("Пуля попала в "+collision.gameObject.name);
-            this.OnCollisionEntered?.Invoke(this, collision.gameObject);
+            if (collision.gameObject.TryGetComponent(out HitPointsComponent damagable))
+            {
+                damagable.TakeDamage(damage);
+            }
+            OnCollisionEntered?.Invoke(this);
         }
     }
 }

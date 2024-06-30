@@ -14,37 +14,30 @@ namespace ShootEmUp
         [SerializeField] private Transform worldTransform;
         [SerializeField] private LevelBounds levelBounds;
 
-        private readonly Queue<Bullet> m_bulletPool = new();
-        private readonly HashSet<Bullet> m_activeBullets = new();
-        private readonly List<Bullet> m_cache = new();
+        private readonly Queue<Bullet> bulletPool = new();
+        private readonly HashSet<Bullet> activeBullets = new();
+        private readonly List<Bullet> cacheBullets = new();
         
         private void Awake()
         {
             for (var i = 0; i < this.initialCount; i++)
             {
                 var bullet = Instantiate(this.prefab, this.container);
-                this.m_bulletPool.Enqueue(bullet);
+                this.bulletPool.Enqueue(bullet);
             }
         }
         
         private void FixedUpdate()
         {
-            this.m_cache.Clear();
-            this.m_cache.AddRange(this.m_activeBullets);
+            this.cacheBullets.Clear();
+            this.cacheBullets.AddRange(this.activeBullets);
+            IsBulletsInBounds();
 
-            for (int i = 0, count = this.m_cache.Count; i < count; i++)
-            {
-                var bullet = this.m_cache[i];
-                if (!this.levelBounds.InBounds(bullet.transform.position))
-                {
-                    this.UnspawnBullet(bullet, new GameObject());
-                }
-            }
         }
 
         public void SpawnBullet(BulletConfig args, Vector2 position, Vector2 velocity)
         {
-            if (this.m_bulletPool.TryDequeue(out var bullet))
+            if (this.bulletPool.TryDequeue(out var bullet))
             {
                 bullet.transform.SetParent(this.worldTransform);
             }
@@ -60,19 +53,32 @@ namespace ShootEmUp
             bullet.isPlayer = args.isPlayer;
             bullet.GetComponent<Rigidbody2D>().velocity =velocity*args.speed;
             
-            if (this.m_activeBullets.Add(bullet))
+            if (this.activeBullets.Add(bullet))
             {
                 bullet.GetComponent<Bullet>().OnCollisionEntered += UnspawnBullet;
             }
         }
-        public void UnspawnBullet(Bullet bullet, GameObject damagable)
+        public void UnspawnBullet(Bullet bullet)
         {
-            if (this.m_activeBullets.Remove(bullet))
+            if (this.activeBullets.Remove(bullet))
             {
                 bullet.transform.SetParent(this.container);
-                this.m_bulletPool.Enqueue(bullet);
+                this.bulletPool.Enqueue(bullet);
                 bullet.GetComponent<Bullet>().OnCollisionEntered -= UnspawnBullet;
             }
         }
+
+        private void IsBulletsInBounds()
+        {
+            for (int i = 0, count = this.cacheBullets.Count; i < count; i++)
+            {
+                var bullet = this.cacheBullets[i];
+                if (!this.levelBounds.InBounds(bullet.transform.position))
+                {
+                    this.UnspawnBullet(bullet);
+                }
+            }
+        }
+        
     }
 }
