@@ -1,6 +1,7 @@
 using UnityEngine;
+using ShootEmUp.Components;
 
-namespace ShootEmUp
+namespace ShootEmUp.Enemy
 {
     public sealed class EnemyAttackAgent : MonoBehaviour
     {

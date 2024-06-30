@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
+using ShootEmUp.Managers;
 
-namespace ShootEmUp
+namespace ShootEmUp.Character
 {
-    internal class CharacterInputObserver:MonoBehaviour
+    internal class CharacterInputObserver : MonoBehaviour
     {
         private void OnEnable()
         {

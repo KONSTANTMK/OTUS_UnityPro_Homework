@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ShootEmUp
+namespace ShootEmUp.Components
 {
     public sealed class WeaponComponent : MonoBehaviour
     {
