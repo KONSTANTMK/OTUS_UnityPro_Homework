@@ -20,7 +20,7 @@ namespace ShootEmUp.Character
 
         private void Move()
         {
-            moveComponent.MoveByRigidbodyVelocity(
+            moveComponent.Move(
                 new Vector2(inputManager.HorizontalDirection, 0) * Time.fixedDeltaTime);
         }
 

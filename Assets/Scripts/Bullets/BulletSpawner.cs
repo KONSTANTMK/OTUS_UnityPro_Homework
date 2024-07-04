@@ -8,7 +8,7 @@ namespace ShootEmUp.Bullets
 {
     public class BulletSpawner : MonoBehaviour
     {
-        public Action<GameObject> OnBulletSpawned;
+        public event Action<GameObject> OnBulletSpawned;
         [Header("Pool")] [SerializeField] private Pool bulletPool;
 
         [SerializeField] private Transform worldTransform;
@@ -17,19 +17,17 @@ namespace ShootEmUp.Bullets
 
         public void SpawnBullet(BulletConfig config, Vector2 position, Vector2 velocity)
         {
-            Queue<GameObject> pool = bulletPool.GetPool();
-            if (pool.TryDequeue(out var bullet))
-            {
-                bullet.transform.SetParent(this.worldTransform);
-                bullet.gameObject.transform.position = position;
-                bullet.gameObject.GetComponent<SpriteRenderer>().color = config.color;
-                bullet.gameObject.layer = (int)config.physicsLayer;
-                bullet.GetComponent<Bullet>().damage = config.damage;
-                bullet.GetComponent<Bullet>().isPlayer = config.isPlayer;
-                bullet.GetComponent<Rigidbody2D>().velocity = velocity * config.speed;
-                this.bulletPool.activeEntityes.Add(bullet);
-                OnBulletSpawned.Invoke(bullet);
-            }
+            if (!bulletPool.TryDequeue(out var bulletObject)) return;
+            Bullet bulletComponent = bulletObject.GetComponent<Bullet>();
+            bulletObject.transform.SetParent(this.worldTransform);
+            bulletObject.gameObject.transform.position = position;
+            bulletObject.gameObject.GetComponent<SpriteRenderer>().color = config.color;
+            bulletObject.gameObject.layer = (int)config.physicsLayer;
+            bulletObject.GetComponent<Rigidbody2D>().velocity = velocity * config.speed;
+            bulletComponent.damage = config.damage;
+            bulletComponent.isPlayer = config.isPlayer;
+            this.bulletPool.activeEntityes.Add(bulletObject);
+            OnBulletSpawned?.Invoke(bulletObject);
         }
     }
 }

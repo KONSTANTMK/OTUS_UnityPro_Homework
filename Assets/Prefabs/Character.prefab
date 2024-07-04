@@ -144,14 +144,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c57ed31af8d94ec3b11df7e2b588d40f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPointsComponent: {fileID: 3926786964091724599}
   weaponComponent: {fileID: 3926786964091724598}
   moveComponent: {fileID: 3926786963732877808}
   inputManager: {fileID: 187985537239592062}
-  gameManager: {fileID: 0}
-  bulletSystem: {fileID: 0}
+  bulletSpawner: {fileID: 0}
   bulletConfig: {fileID: 11400000, guid: 7138ae5d32d814e0ca50c616c65ea105, type: 2}
-  fireRequired: 0
 --- !u!114 &3926786964091724599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,7 +213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b14333133de459084c37baadb62093f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 0}
+  character: {fileID: 1290407457030637144}
+  inputManager: {fileID: 187985537239592062}
 --- !u!114 &3926786964091724597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,8 +240,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e3d6f60964ade459966c873c5beb3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 0}
   gameManager: {fileID: 0}
+  hitPointsComponent: {fileID: 3926786964091724599}
 --- !u!1 &3926786963072264211
 GameObject:
   m_ObjectHideFlags: 0

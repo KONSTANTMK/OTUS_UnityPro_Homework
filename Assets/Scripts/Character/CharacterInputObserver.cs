@@ -5,14 +5,16 @@ namespace ShootEmUp.Character
 {
     internal class CharacterInputObserver : MonoBehaviour
     {
+        [SerializeField] private Character character;
+        [SerializeField] private InputManager inputManager;
         private void OnEnable()
         {
-            this.GetComponent<InputManager>().shootKeyDown += this.GetComponent<Character>().Shot;
+            inputManager.shootKeyDown += character.Shot;
         }
 
         private void OnDisable()
         {
-            this.GetComponent<InputManager>().shootKeyDown -= this.GetComponent<Character>().Shot;
+            inputManager.shootKeyDown -= character.Shot;
         }
     }
 }

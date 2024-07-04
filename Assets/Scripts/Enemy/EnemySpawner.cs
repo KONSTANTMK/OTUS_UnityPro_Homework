@@ -30,22 +30,20 @@ namespace ShootEmUp.Enemy
                 SpawnEnemy();
             }
         }
-        public void SpawnEnemy()
+        private void SpawnEnemy()
         {
-            Queue<GameObject> pool = enemyPool.GetPool();
-            
-            if (pool.TryDequeue(out var enemy))
-            {
-                enemy.transform.SetParent(this.worldTransform);
-                var spawnPosition = this.enemyPositions.RandomSpawnPosition();
-                enemy.transform.position = spawnPosition.position;
-                var attackPosition = this.enemyPositions.RandomAttackPosition();
-                enemy.GetComponent<EnemyMoveAgent>().SetDestination(attackPosition.position);
-                enemy.GetComponent<EnemyAttackAgent>().SetTarget(this.character);
-                this.enemyPool.activeEntityes.Add(enemy);
-                enemy.GetComponent<HitPointsComponent>().hpEmpty += this.OnDestroyed;
-                enemy.GetComponent<EnemyAttackAgent>().OnFire += enemyManager.Shoot;
-            }
+            Debug.Log("Вошли");
+            if (!enemyPool.TryDequeue(out GameObject enemyObject)) return;
+            Debug.Log("ВЫШЛИ");
+            enemyObject.transform.SetParent(this.worldTransform);
+            var spawnPosition = this.enemyPositions.RandomSpawnPosition();
+            enemyObject.transform.position = spawnPosition.position;
+            var attackPosition = this.enemyPositions.RandomAttackPosition();
+            enemyObject.GetComponent<EnemyMoveAgent>().SetDestination(attackPosition.position);
+            enemyObject.GetComponent<EnemyAttackAgent>().SetTarget(this.character);
+            this.enemyPool.activeEntityes.Add(enemyObject);
+            enemyObject.GetComponent<HitPointsComponent>().hpEmpty += this.OnDestroyed;
+            enemyObject.GetComponent<EnemyAttackAgent>().OnFire += enemyManager.Shoot;
         }
         
         public void OnDestroyed(GameObject enemy)
