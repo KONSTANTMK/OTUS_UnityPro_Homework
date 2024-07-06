@@ -1,21 +1,28 @@
+using System;
 using UnityEngine;
 using ShootEmUp.Components;
+using ShootEmUp.Bullets;
 
 namespace ShootEmUp.Enemy
 {
     public sealed class EnemyAttackAgent : MonoBehaviour
     {
-        public delegate void FireHandler(GameObject enemy, Vector2 position, Vector2 direction);
-
-        public event FireHandler OnFire;
-
+        public event Action<BulletConfig,Vector2,Vector2,bool> OnFire;
+        
         [SerializeField] private WeaponComponent weaponComponent;
+        [SerializeField] private TeamComponent teamComponent;
         [SerializeField] private EnemyMoveAgent moveAgent;
         [SerializeField] private float countdown;
+        [SerializeField] private BulletConfig bulletConfig;
 
         private GameObject target;
         private float currentTime;
-
+        
+        private void FixedUpdate()
+        {
+            Fire();
+        }
+        
         public void SetTarget(GameObject target)
         {
             this.target = target;
@@ -23,35 +30,30 @@ namespace ShootEmUp.Enemy
 
         public void Reset()
         {
-            this.currentTime = this.countdown;
+            currentTime = countdown;
         }
-
-        private void FixedUpdate()
+        
+        private void Fire()
         {
-            if (!this.moveAgent.IsReached)
+            if (!moveAgent.IsReached)
             {
                 return;
             }
             
-            if (!this.target.GetComponent<HitPointsComponent>().IsLive())
+            if (!target.GetComponent<HitPointsComponent>().IsLive())
             {
                 return;
             }
 
-            this.currentTime -= Time.fixedDeltaTime;
-            if (this.currentTime <= 0)
+            currentTime -= Time.fixedDeltaTime;
+            if (currentTime <= 0)
             {
-                this.Fire();
-                this.currentTime += this.countdown;
+                Vector2 position = weaponComponent.Position;
+                Vector2 vector = (Vector2) target.transform.position - position;
+                Vector2 velocity = vector.normalized;
+                OnFire?.Invoke(bulletConfig, position, velocity, teamComponent.IsPlayer);
+                currentTime += countdown;
             }
-        }
-
-        private void Fire()
-        {
-            var startPosition = this.weaponComponent.Position;
-            var vector = (Vector2) this.target.transform.position - startPosition;
-            var direction = vector.normalized;
-            this.OnFire?.Invoke(this.gameObject, startPosition, direction);
         }
     }
 }

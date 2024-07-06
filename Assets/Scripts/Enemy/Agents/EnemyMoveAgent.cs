@@ -12,29 +12,35 @@ namespace ShootEmUp.Enemy
         private Vector2 destination;
 
         private bool isReached;
-
-        public void SetDestination(Vector2 endPoint)
-        {
-            this.destination = endPoint;
-            this.isReached = false;
-        }
-
+        
         private void FixedUpdate()
         {
-            if (this.isReached)
+            Move();
+        }
+        
+        public void SetDestination(Vector2 endPoint)
+        {
+            destination = endPoint;
+            isReached = false;
+        }
+        private void Move()
+        {
+            if (isReached)
             {
                 return;
             }
             
-            var vector = this.destination - (Vector2) this.transform.position;
+            Vector2 vector = destination - (Vector2) transform.position;
             if (vector.magnitude <= 0.25f)
             {
-                this.isReached = true;
+                isReached = true;
                 return;
             }
 
-            var direction = vector.normalized * Time.fixedDeltaTime;
-            this.moveComponent.Move(direction);
+            Vector2 direction = vector.normalized * Time.fixedDeltaTime;
+            moveComponent.Move(direction);
         }
+        
+
     }
 }

@@ -5,8 +5,8 @@ namespace ShootEmUp.Common
 {
     public class Pool : MonoBehaviour
     {
-        public HashSet<GameObject> activeEntityes { get; } = new();
-        public List<GameObject> cacheEntities { get; } = new();
+        public HashSet<GameObject> ActiveEntityes { get; } = new();
+        public List<GameObject> CacheEntities { get; } = new();
         
         [SerializeField] private GameObject prefab;
         [SerializeField] private int startInstantiateCount;
@@ -21,16 +21,16 @@ namespace ShootEmUp.Common
 
         private void FixedUpdate()
         {
-            this.cacheEntities.Clear();
-            this.cacheEntities.AddRange(this.activeEntityes);
+            CacheEntities.Clear();
+            CacheEntities.AddRange(ActiveEntityes);
         }
 
         private void Initialize()
         {
             for (var i = 0; i < startInstantiateCount; i++)
             {
-                var entity = Instantiate(this.prefab, this.poolContainer);
-                this.entityPool.Enqueue(entity);
+                var entity = Instantiate(prefab, poolContainer);
+                entityPool.Enqueue(entity);
             }
         }
 
@@ -41,7 +41,7 @@ namespace ShootEmUp.Common
 
         public void ReturnToPull(GameObject entity)
         {
-            entity.transform.SetParent(this.poolContainer);
+            entity.transform.SetParent(poolContainer);
             entityPool.Enqueue(entity);
         }
     }

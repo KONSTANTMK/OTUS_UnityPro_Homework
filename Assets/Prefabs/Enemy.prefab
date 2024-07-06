@@ -209,8 +209,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponComponent: {fileID: 5568771391735819374}
+  teamComponent: {fileID: 5568771391735819379}
   moveAgent: {fileID: 8186052948131603766}
   countdown: 1
+  bulletConfig: {fileID: 11400000, guid: e20f2616f091669499b7b7aba801f2d7, type: 2}
 --- !u!1 &2239154907127902911
 GameObject:
   m_ObjectHideFlags: 0

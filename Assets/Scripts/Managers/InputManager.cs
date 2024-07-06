@@ -7,26 +7,26 @@ namespace ShootEmUp.Managers
     {
         public float HorizontalDirection { get; private set; }
 
-        public Action shootKeyDown;
+        public event Action ShootKeyDown;
         
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                shootKeyDown?.Invoke();
+                ShootKeyDown?.Invoke();
             }
 
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                this.HorizontalDirection = -1;
+                HorizontalDirection = -1;
             }
             else if (Input.GetKey(KeyCode.RightArrow))
             {
-                this.HorizontalDirection = 1;
+                HorizontalDirection = 1;
             }
             else
             {
-                this.HorizontalDirection = 0;
+                HorizontalDirection = 0;
             }
         }
     }

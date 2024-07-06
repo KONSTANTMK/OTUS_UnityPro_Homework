@@ -1,32 +1,33 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ShootEmUp.Bullets
 {
     public class BulletSpawnObserver : MonoBehaviour
     {
         [SerializeField] private BulletSpawner bulletSpawner;
-        [SerializeField] private BulletUnspawner bulletUnspawner;
+        [SerializeField] private BulletDestroyer bulletDestroyer;
 
         private void OnEnable()
         {
-            bulletSpawner.OnBulletSpawned += this.OnSpawn;
-            bulletUnspawner.OnBulletUnspawned += this.OnUnspawn;
+            bulletSpawner.OnBulletSpawned += OnSpawned;
+            bulletDestroyer.OnBulletDestroyed += OnDestroyed;
         }
 
         private void OnDisable()
         {
-            bulletSpawner.OnBulletSpawned -= this.OnSpawn;
-            bulletUnspawner.OnBulletUnspawned -= this.OnUnspawn;
+            bulletSpawner.OnBulletSpawned -= OnSpawned;
+            bulletDestroyer.OnBulletDestroyed -= OnDestroyed;
         }
 
-        private void OnSpawn(GameObject bullet)
+        private void OnSpawned(GameObject bullet)
         {
-            bullet.GetComponent<Bullet>().OnCollisionEntered += bulletUnspawner.UnspawnBullet;
+            bullet.GetComponent<Bullet>().OnCollisionEntered += bulletDestroyer.DestroyBullet;
         }
 
-        private void OnUnspawn(GameObject bullet)
+        private void OnDestroyed(GameObject bullet)
         {
-            bullet.GetComponent<Bullet>().OnCollisionEntered -= bulletUnspawner.UnspawnBullet;
+            bullet.GetComponent<Bullet>().OnCollisionEntered -= bulletDestroyer.DestroyBullet;
         }
     }
 }

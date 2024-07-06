@@ -9,12 +9,12 @@ namespace ShootEmUp.Character
         [SerializeField] private InputManager inputManager;
         private void OnEnable()
         {
-            inputManager.shootKeyDown += character.Shot;
+            inputManager.ShootKeyDown += character.Shot;
         }
 
         private void OnDisable()
         {
-            inputManager.shootKeyDown -= character.Shot;
+            inputManager.ShootKeyDown -= character.Shot;
         }
     }
 }

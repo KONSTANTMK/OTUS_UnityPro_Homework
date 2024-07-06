@@ -146,6 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponComponent: {fileID: 3926786964091724598}
   moveComponent: {fileID: 3926786963732877808}
+  teamComponent: {fileID: 3926786964091724597}
   inputManager: {fileID: 187985537239592062}
   bulletSpawner: {fileID: 0}
   bulletConfig: {fileID: 11400000, guid: 7138ae5d32d814e0ca50c616c65ea105, type: 2}

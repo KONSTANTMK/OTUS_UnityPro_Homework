@@ -10,8 +10,8 @@ namespace ShootEmUp.Components
 
         public void Move(Vector2 vector)
         {
-            var nextPosition = this.rigidbody2D.position + vector * this.speed;
-            this.rigidbody2D.MovePosition(nextPosition);
+            Vector2 nextPosition = rigidbody2D.position + vector * speed;
+            rigidbody2D.MovePosition(nextPosition);
         }
     }
 }

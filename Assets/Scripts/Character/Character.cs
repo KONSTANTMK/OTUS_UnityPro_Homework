@@ -9,6 +9,7 @@ namespace ShootEmUp.Character
     {
         [SerializeField] private WeaponComponent weaponComponent;
         [SerializeField] private MoveComponent moveComponent;
+        [SerializeField] private TeamComponent teamComponent;
         [SerializeField] private InputManager inputManager;
         [SerializeField] private BulletSpawner bulletSpawner;
         [SerializeField] private BulletConfig bulletConfig;
@@ -27,7 +28,7 @@ namespace ShootEmUp.Character
         public void Shot()
         {
             bulletSpawner.SpawnBullet(bulletConfig, weaponComponent.Position,
-                weaponComponent.Rotation * Vector3.up);
+                weaponComponent.Rotation * Vector3.up, teamComponent.IsPlayer);
         }
     }
 }

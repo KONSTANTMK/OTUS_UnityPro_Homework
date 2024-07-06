@@ -1,7 +1,7 @@
 using ShootEmUp.Common;
 using UnityEngine;
 
-namespace ShootEmUp
+namespace ShootEmUp.Bullets
 {
     [CreateAssetMenu(
         fileName = "BulletConfig",
@@ -17,7 +17,5 @@ namespace ShootEmUp
         public int damage;
         [SerializeField]
         public float speed;
-        [SerializeField]
-        public bool isPlayer;
     }
 }

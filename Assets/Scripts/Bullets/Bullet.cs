@@ -12,17 +12,12 @@ namespace ShootEmUp.Bullets
 
         [NonSerialized] public int damage;
 
-        [SerializeField] private new Rigidbody2D rigidbody2D;
-
-        [SerializeField] private SpriteRenderer spriteRenderer;
-
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.TryGetComponent(out HitPointsComponent damagable))
             {
                 damagable.TakeDamage(damage);
             }
-
             OnCollisionEntered?.Invoke(this.gameObject);
         }
         
