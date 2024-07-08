@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 
 namespace ShootEmUp.Enemy
 {
-    public class EnemyShootObserver : MonoBehaviour,IGameStartListener,IGameFinishListener,IGameResumeListener,IGamePauseListener
+    public class EnemyShootObserver : MonoBehaviour,IGameStartListener,IGameFinishListener
     {
         [SerializeField] private EnemySpawner enemySpawner;
         [SerializeField] private EnemyDestroyer enemyDestroyer;
@@ -14,8 +14,6 @@ namespace ShootEmUp.Enemy
         
         void IGameStartListener.OnStartGame() => StartSubscribe();
         void IGameFinishListener.OnFinishGame() => StopSubscribe();
-        void IGameResumeListener.OnResumeGame() => StartSubscribe();
-        void IGamePauseListener.OnPauseGame() => StopSubscribe();
         
         private void StartSubscribe()
         {

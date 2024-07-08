@@ -6,7 +6,7 @@ using ShootEmUp.GameSystem.Listeners;
 
 namespace ShootEmUp.Enemy
 {
-    public sealed class EnemyAttackAgent : MonoBehaviour, IGameFixedUpdateListener
+    public sealed class EnemyAttackAgent : MonoBehaviour,IGameFinishListener, IGameFixedUpdateListener
     {
         public event Action<BulletConfig,Vector2,Vector2,bool> OnFire;
         
@@ -19,6 +19,11 @@ namespace ShootEmUp.Enemy
         private GameObject target;
         private float currentTime;
 
+        void IGameFinishListener.OnFinishGame()
+        {
+            currentTime = countdown;
+        }
+        
         void IGameFixedUpdateListener.OnFixedUpdate(float deltaTime)
         {
             Fire();
@@ -27,11 +32,6 @@ namespace ShootEmUp.Enemy
         public void SetTarget(GameObject target)
         {
             this.target = target;
-        }
-
-        public void Reset()
-        {
-            currentTime = countdown;
         }
         
         private void Fire()

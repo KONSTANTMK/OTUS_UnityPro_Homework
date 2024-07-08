@@ -17,7 +17,7 @@ namespace ShootEmUp.UI.MainMenu
 
         void IGameResumeListener.OnResumeGame()
         {
-            gameObject.SetActive(false);
+            gameObject.SetActive(true);
         }
         
         void IGameFinishListener.OnFinishGame()

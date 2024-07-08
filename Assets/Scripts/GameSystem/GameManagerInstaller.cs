@@ -10,7 +10,7 @@ namespace ShootEmUp.GameSystem
         [SerializeField] private GameManager gameManager;
         private void Awake()
         {
-            gameManager.AddListeners(GetComponentsInChildren<IGameListener>().ToList()); ;
+            gameManager.AddListeners(GetComponentsInChildren<IGameListener>().ToList());
         }
     }
 }

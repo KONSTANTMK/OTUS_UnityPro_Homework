@@ -2,11 +2,12 @@ using UnityEngine;
 using ShootEmUp.Bullets;
 using ShootEmUp.Components;
 using ShootEmUp.GameSystem;
+using ShootEmUp.GameSystem.Listeners;
 using UnityEngine.Serialization;
 
 namespace ShootEmUp.Character
 {
-    public sealed class Character : MonoBehaviour
+    public sealed class Character : MonoBehaviour, IGameFixedUpdateListener
     {
         [SerializeField] private WeaponComponent weaponComponent;
         [SerializeField] private MoveComponent moveComponent;
@@ -15,7 +16,7 @@ namespace ShootEmUp.Character
         [SerializeField] private BulletSpawner bulletSpawner;
         [SerializeField] private BulletConfig bulletConfig;
 
-        private void FixedUpdate()
+        void IGameFixedUpdateListener.OnFixedUpdate(float deltaTime)
         {
             Move();
         }

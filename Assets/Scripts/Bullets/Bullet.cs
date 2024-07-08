@@ -9,7 +9,6 @@ namespace ShootEmUp.Bullets
         public event Action<GameObject> OnCollisionEntered;
 
         [NonSerialized] public bool isPlayer;
-
         [NonSerialized] public int damage;
         
         private void OnCollisionEnter2D(Collision2D collision)

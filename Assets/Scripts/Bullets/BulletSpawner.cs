@@ -14,9 +14,7 @@ namespace ShootEmUp.Bullets
         [SerializeField] private Pool bulletPool;
 
         [SerializeField] private Transform worldTransform;
-        [SerializeField] private GameManager gameManager;
         
-
         public void SpawnBullet(BulletConfig config, Vector2 position, Vector2 velocity, bool isPlayer)
         {
             if (!bulletPool.TryDequeue(out var bulletObject)) return;
@@ -25,11 +23,10 @@ namespace ShootEmUp.Bullets
             bulletObject.transform.position = position;
             bulletObject.GetComponent<SpriteRenderer>().color = config.color;
             bulletObject.layer = (int)config.physicsLayer;
-            bulletObject.GetComponent<Rigidbody2D>().velocity = velocity * config.speed;
+            bulletObject.GetComponent<BulletMoveController>().SetVelocity(velocity * config.speed);
             bulletComponent.damage = config.damage;
             bulletComponent.isPlayer = isPlayer;
             this.bulletPool.ActiveEntityes.Add(bulletObject);
-            gameManager.AddListeners(bulletObject.GetComponents<IGameListener>().ToList());
             OnBulletSpawned?.Invoke(bulletObject);
         }
     }

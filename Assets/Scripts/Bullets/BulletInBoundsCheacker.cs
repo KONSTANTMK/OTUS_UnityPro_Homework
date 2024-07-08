@@ -1,17 +1,18 @@
 using System;
 using UnityEngine;
 using ShootEmUp.Common;
+using ShootEmUp.GameSystem.Listeners;
 using ShootEmUp.Level;
 
 namespace ShootEmUp.Bullets
 {
-    public sealed class BulletInBoundsCheacker : MonoBehaviour
+    public sealed class BulletInBoundsCheacker : MonoBehaviour,IGameFixedUpdateListener
     {
         public event Action<GameObject> OnBulletOutBounds;
         [SerializeField] private LevelBounds levelBounds;
         [SerializeField] private Pool bulletPool;
 
-        private void FixedUpdate()
+        void IGameFixedUpdateListener.OnFixedUpdate(float deltaTime)
         {
             IsBulletsInBounds();
         }

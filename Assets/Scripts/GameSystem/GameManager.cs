@@ -94,21 +94,7 @@ namespace ShootEmUp.GameSystem
 
             foreach (var listener in listeners)
             {
-                this.listeners.Add(listener);
-                if (listener is IGameUpdateListener updateListener)
-                {
-                    this.updateListeners.Add(updateListener);
-                }
-
-                if (listener is IGameFixedUpdateListener fixedUpdateListener)
-                {
-                    this.fixedUpdateListeners.Add(fixedUpdateListener);
-                }
-
-                if (listener is IGameLateUpdateListener lateUpdateListener)
-                {
-                    this.lateUpdateListeners.Add(lateUpdateListener);
-                }
+                AddListener(listener);
             }
         }
         
@@ -134,6 +120,19 @@ namespace ShootEmUp.GameSystem
             if (listener is IGameLateUpdateListener lateUpdateListener)
             {
                 this.lateUpdateListeners.Remove(lateUpdateListener);
+            }
+        }
+
+        public void RemoveListeners(List<IGameListener> listeners)
+        {
+            if (listeners == null)
+            {
+                return;
+            }
+
+            foreach (var listener in listeners)
+            {
+                RemoveListener(listener);
             }
         }
         

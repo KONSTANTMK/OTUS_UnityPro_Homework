@@ -1,21 +1,28 @@
-﻿using ShootEmUp.Components;
+﻿using System.Linq;
+using ShootEmUp.Components;
+using ShootEmUp.GameSystem;
+using ShootEmUp.GameSystem.Listeners;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace ShootEmUp.Enemy
 {
-    public class EnemyDeathObserver : MonoBehaviour
+    public class EnemySpawnObserver : MonoBehaviour,IGameStartListener, IGameFinishListener
     {
         [SerializeField] private EnemySpawner enemySpawner;
         [SerializeField] private EnemyDestroyer enemyDestroyer;
-
-        private void OnEnable()
+        [SerializeField] private GameManager gameManager;
+        
+        void IGameStartListener.OnStartGame() => StartSubscribe();
+        void IGameFinishListener.OnFinishGame() => StopSubscribe();
+        
+        private void StartSubscribe()
         {
             enemySpawner.OnEnemySpawned += OnSpawned;
             enemyDestroyer.OnEnemyDestroyed += OnDestroyed;
         }
 
-        private void OnDisable()
+        private void StopSubscribe()
         {
             enemySpawner.OnEnemySpawned -= OnSpawned;
             enemyDestroyer.OnEnemyDestroyed -= OnDestroyed;
@@ -24,11 +31,13 @@ namespace ShootEmUp.Enemy
         private void OnSpawned(GameObject enemy)
         {
             enemy.GetComponent<HitPointsComponent>().HpEmpty += enemyDestroyer.DestroyEnemy;
+            gameManager.AddListeners(enemy.GetComponents<IGameListener>().ToList());
         }
 
         private void OnDestroyed(GameObject enemy)
         {
             enemy.GetComponent<HitPointsComponent>().HpEmpty -= enemyDestroyer.DestroyEnemy;
+            gameManager.RemoveListeners(enemy.GetComponents<IGameListener>().ToList());
         }
     }
 }

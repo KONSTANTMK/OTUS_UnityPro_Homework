@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using ShootEmUp.GameSystem.Listeners;
 using UnityEngine;
 
 namespace ShootEmUp.Common
 {
-    public class Pool : MonoBehaviour
+    public class Pool : MonoBehaviour, IGameFixedUpdateListener
     {
         public HashSet<GameObject> ActiveEntityes { get; } = new();
         public List<GameObject> CacheEntities { get; } = new();
@@ -19,7 +20,7 @@ namespace ShootEmUp.Common
             Initialize();
         }
 
-        private void FixedUpdate()
+        void IGameFixedUpdateListener.OnFixedUpdate(float deltaTime)
         {
             CacheEntities.Clear();
             CacheEntities.AddRange(ActiveEntityes);

@@ -1,9 +1,10 @@
 using System;
+using ShootEmUp.GameSystem.Listeners;
 using UnityEngine;
 
 namespace ShootEmUp.Level
 {
-    public sealed class LevelBackground : MonoBehaviour
+    public sealed class LevelBackground : MonoBehaviour, IGameFixedUpdateListener
     {
         [SerializeField] private float startPositionY;
         [SerializeField] private float endPositionY;
@@ -20,7 +21,7 @@ namespace ShootEmUp.Level
             Initialize();
         }
 
-        private void FixedUpdate()
+        void IGameFixedUpdateListener.OnFixedUpdate(float deltaTime)
         {
             Move();
         }

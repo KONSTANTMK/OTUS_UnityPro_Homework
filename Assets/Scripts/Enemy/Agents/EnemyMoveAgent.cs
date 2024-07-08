@@ -16,7 +16,6 @@ namespace ShootEmUp.Enemy
         
         void IGameFixedUpdateListener.OnFixedUpdate(float deltaTime)
         {
-            Debug.Log("ТОже раброатыфв");
             Move();
         }
         
