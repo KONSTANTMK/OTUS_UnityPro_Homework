@@ -1,4 +1,4 @@
-using ShootEmUp.Common;
+using ShootEmUp.GameSystem.Data;
 using UnityEngine;
 
 namespace ShootEmUp.Bullets

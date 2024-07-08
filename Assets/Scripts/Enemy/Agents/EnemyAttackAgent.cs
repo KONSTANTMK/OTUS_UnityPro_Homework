@@ -2,10 +2,11 @@ using System;
 using UnityEngine;
 using ShootEmUp.Components;
 using ShootEmUp.Bullets;
+using ShootEmUp.GameSystem.Listeners;
 
 namespace ShootEmUp.Enemy
 {
-    public sealed class EnemyAttackAgent : MonoBehaviour
+    public sealed class EnemyAttackAgent : MonoBehaviour, IGameFixedUpdateListener
     {
         public event Action<BulletConfig,Vector2,Vector2,bool> OnFire;
         
@@ -17,8 +18,8 @@ namespace ShootEmUp.Enemy
 
         private GameObject target;
         private float currentTime;
-        
-        private void FixedUpdate()
+
+        void IGameFixedUpdateListener.OnFixedUpdate(float deltaTime)
         {
             Fire();
         }

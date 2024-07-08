@@ -1,23 +1,29 @@
 ﻿using ShootEmUp.Bullets;
 using ShootEmUp.Components;
+using ShootEmUp.GameSystem.Listeners;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace ShootEmUp.Enemy
 {
-    public class EnemyShootObserver : MonoBehaviour
+    public class EnemyShootObserver : MonoBehaviour,IGameStartListener,IGameFinishListener,IGameResumeListener,IGamePauseListener
     {
         [SerializeField] private EnemySpawner enemySpawner;
         [SerializeField] private EnemyDestroyer enemyDestroyer;
         [SerializeField] private BulletSpawner bulletSpawner;
-
-        private void OnEnable()
+        
+        void IGameStartListener.OnStartGame() => StartSubscribe();
+        void IGameFinishListener.OnFinishGame() => StopSubscribe();
+        void IGameResumeListener.OnResumeGame() => StartSubscribe();
+        void IGamePauseListener.OnPauseGame() => StopSubscribe();
+        
+        private void StartSubscribe()
         {
             enemySpawner.OnEnemySpawned += OnSpawned;
             enemyDestroyer.OnEnemyDestroyed += OnDestroyed;
         }
 
-        private void OnDisable()
+        private void StopSubscribe()
         {
             enemySpawner.OnEnemySpawned -= OnSpawned;
             enemyDestroyer.OnEnemyDestroyed -= OnDestroyed;

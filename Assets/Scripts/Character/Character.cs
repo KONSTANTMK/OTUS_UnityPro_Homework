@@ -1,7 +1,8 @@
 using UnityEngine;
 using ShootEmUp.Bullets;
 using ShootEmUp.Components;
-using ShootEmUp.Managers;
+using ShootEmUp.GameSystem;
+using UnityEngine.Serialization;
 
 namespace ShootEmUp.Character
 {

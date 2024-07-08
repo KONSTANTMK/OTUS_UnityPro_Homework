@@ -11,7 +11,7 @@ namespace ShootEmUp.Bullets
         [NonSerialized] public bool isPlayer;
 
         [NonSerialized] public int damage;
-
+        
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.TryGetComponent(out HitPointsComponent damagable))

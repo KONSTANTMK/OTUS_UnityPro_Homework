@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-using ShootEmUp.Managers;
+using ShootEmUp.GameSystem;
+using UnityEngine.Serialization;
 
 namespace ShootEmUp.Character
 {

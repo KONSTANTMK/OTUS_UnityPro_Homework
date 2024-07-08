@@ -1,15 +1,18 @@
 using System;
+using ShootEmUp.GameSystem.Listeners;
 using UnityEngine;
 
-namespace ShootEmUp.Managers
+namespace ShootEmUp.GameSystem
 {
-    public sealed class InputManager : MonoBehaviour
+    public sealed class InputManager : MonoBehaviour, IGameUpdateListener
     {
         public float HorizontalDirection { get; private set; }
 
         public event Action ShootKeyDown;
         
-        private void Update()
+        void IGameUpdateListener.OnUpdate(float deltaTime) => HandleInput();
+
+        private void HandleInput()
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -29,5 +32,6 @@ namespace ShootEmUp.Managers
                 HorizontalDirection = 0;
             }
         }
+        
     }
 }

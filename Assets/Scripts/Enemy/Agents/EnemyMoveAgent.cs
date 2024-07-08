@@ -1,9 +1,10 @@
 using UnityEngine;
 using ShootEmUp.Components;
+using ShootEmUp.GameSystem.Listeners;
 
 namespace ShootEmUp.Enemy
 {
-    public sealed class EnemyMoveAgent : MonoBehaviour
+    public sealed class EnemyMoveAgent : MonoBehaviour,IGameFixedUpdateListener
     {
         public bool IsReached => isReached; 
         
@@ -13,8 +14,9 @@ namespace ShootEmUp.Enemy
 
         private bool isReached;
         
-        private void FixedUpdate()
+        void IGameFixedUpdateListener.OnFixedUpdate(float deltaTime)
         {
+            Debug.Log("ТОже раброатыфв");
             Move();
         }
         

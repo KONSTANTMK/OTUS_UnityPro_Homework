@@ -1,4 +1,4 @@
-namespace ShootEmUp.Common
+namespace ShootEmUp.GameSystem.Data
 {
     public enum PhysicsLayer
     {
