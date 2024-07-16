@@ -147,6 +147,7 @@ MonoBehaviour:
   weaponComponent: {fileID: 3926786964091724598}
   moveComponent: {fileID: 3926786963732877808}
   teamComponent: {fileID: 3926786964091724597}
+  hitPointsComponent: {fileID: 0}
   inputManager: {fileID: 187985537239592062}
   bulletSpawner: {fileID: 0}
   bulletConfig: {fileID: 11400000, guid: 7138ae5d32d814e0ca50c616c65ea105, type: 2}
@@ -162,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae5daa1be9cc40a78a2f07cd53e5b47e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 5
+  maxHitPoints: 10
 --- !u!114 &3926786964091724598
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,17 +11,23 @@ namespace ShootEmUp.Bullets
         [SerializeField] private new Rigidbody2D rigidbody = new();
         private Vector2 oldVelocity;
         void IGamePauseListener.OnPauseGame() => PauseFlying();
-        void IGameResumeListener.OnResumeGame() => SetVelocity(oldVelocity);
-        
-        private void PauseFlying()
-        {
-            oldVelocity = rigidbody.velocity;
-            rigidbody.velocity = new Vector2(0,0);
-        }
+        void IGameResumeListener.OnResumeGame() => ResumeFlying();
         
         public void SetVelocity(Vector2 velocity)
         {
             rigidbody.velocity = velocity;
+        }
+        
+        private void PauseFlying()
+        {
+            oldVelocity = rigidbody.velocity;
+            rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+
+        private void ResumeFlying()
+        {
+            rigidbody.constraints = RigidbodyConstraints2D.None;
+            rigidbody.velocity = oldVelocity;
         }
         
     }

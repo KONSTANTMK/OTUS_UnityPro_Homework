@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using ShootEmUp.Common;
-using ShootEmUp.GameSystem;
-using ShootEmUp.GameSystem.Listeners;
 
 namespace ShootEmUp.Bullets
 {
@@ -26,7 +22,7 @@ namespace ShootEmUp.Bullets
             bulletObject.GetComponent<BulletMoveController>().SetVelocity(velocity * config.speed);
             bulletComponent.damage = config.damage;
             bulletComponent.isPlayer = isPlayer;
-            this.bulletPool.ActiveEntityes.Add(bulletObject);
+            this.bulletPool.ActiveEntities.Add(bulletObject);
             OnBulletSpawned?.Invoke(bulletObject);
         }
     }

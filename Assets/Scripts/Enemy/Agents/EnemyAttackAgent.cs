@@ -41,7 +41,7 @@ namespace ShootEmUp.Enemy
                 return;
             }
             
-            if (!target.GetComponent<HitPointsComponent>().IsLive())
+            if (!target.GetComponent<HitPointsComponent>().IsAlive())
             {
                 return;
             }

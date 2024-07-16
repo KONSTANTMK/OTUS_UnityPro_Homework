@@ -1,8 +1,8 @@
 ﻿using System.Linq;
+using ShootEmUp.Common;
 using ShootEmUp.GameSystem;
 using ShootEmUp.GameSystem.Listeners;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ShootEmUp.Bullets
 {
@@ -10,6 +10,7 @@ namespace ShootEmUp.Bullets
     {
         [SerializeField] private BulletSpawner bulletSpawner;
         [SerializeField] private BulletDestroyer bulletDestroyer;
+        [SerializeField] private Pool bulletPool;
         [SerializeField] private GameManager gameManager;
 
         void IGameStartListener.OnStartGame() => StartSubscribe();
@@ -29,14 +30,14 @@ namespace ShootEmUp.Bullets
 
         private void OnSpawned(GameObject bullet)
         {
-            bullet.GetComponent<Bullet>().OnCollisionEntered += bulletDestroyer.DestroyBullet;
             gameManager.AddListeners(bullet.GetComponents<IGameListener>().ToList());
+            bullet.GetComponent<Bullet>().OnCollisionEntered += bulletDestroyer.DestroyBullet;
         }
 
         private void OnDestroyed(GameObject bullet)
         {
-            bullet.GetComponent<Bullet>().OnCollisionEntered -= bulletDestroyer.DestroyBullet;
             gameManager.RemoveListeners(bullet.GetComponents<IGameListener>().ToList());
+            bullet.GetComponent<Bullet>().OnCollisionEntered -= bulletDestroyer.DestroyBullet;
         }
     }
 }

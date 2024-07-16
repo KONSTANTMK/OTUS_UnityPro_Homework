@@ -30,14 +30,14 @@ namespace ShootEmUp.Enemy
 
         private void OnSpawned(GameObject enemy)
         {
-            enemy.GetComponent<HitPointsComponent>().HpEmpty += enemyDestroyer.DestroyEnemy;
             gameManager.AddListeners(enemy.GetComponents<IGameListener>().ToList());
+            enemy.GetComponent<HitPointsComponent>().HpEmpty += enemyDestroyer.DestroyEnemy;
         }
 
         private void OnDestroyed(GameObject enemy)
         {
-            enemy.GetComponent<HitPointsComponent>().HpEmpty -= enemyDestroyer.DestroyEnemy;
             gameManager.RemoveListeners(enemy.GetComponents<IGameListener>().ToList());
+            enemy.GetComponent<HitPointsComponent>().HpEmpty -= enemyDestroyer.DestroyEnemy;
         }
     }
 }

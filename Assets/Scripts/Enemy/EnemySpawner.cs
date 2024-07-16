@@ -43,7 +43,7 @@ namespace ShootEmUp.Enemy
             var attackPosition = this.enemyPositions.RandomAttackPosition();
             enemyObject.GetComponent<EnemyMoveAgent>().SetDestination(attackPosition.position);
             enemyObject.GetComponent<EnemyAttackAgent>().SetTarget(this.character);
-            this.enemyPool.ActiveEntityes.Add(enemyObject);
+            enemyPool.ActiveEntities.Add(enemyObject);
             OnEnemySpawned?.Invoke(enemyObject);
         }
     }

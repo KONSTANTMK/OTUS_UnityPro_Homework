@@ -1,15 +1,19 @@
 using System;
+using ShootEmUp.GameSystem.Listeners;
 using UnityEngine;
 
 namespace ShootEmUp.Components
 {
-    public sealed class HitPointsComponent : MonoBehaviour
+    public sealed class HitPointsComponent : MonoBehaviour,IGameStartListener
     {
         public event Action<GameObject> HpEmpty;
+        [SerializeField] private int maxHitPoints;
 
-        [SerializeField] private int hitPoints;
+        private int hitPoints;
 
-        public bool IsLive()
+        void IGameStartListener.OnStartGame() => ResetHitPoints();
+
+        public bool IsAlive()
         {
             return hitPoints > 0;
         }
@@ -21,6 +25,11 @@ namespace ShootEmUp.Components
             {
                 HpEmpty?.Invoke(gameObject);
             }
+        }
+
+        public void ResetHitPoints()
+        {
+            hitPoints = maxHitPoints;
         }
     }
 }

@@ -538,7 +538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 2743036428890533592, guid: 5fe72886874b4e445b06cf777ca4920d, type: 3}
-  startInstantiateCount: 50
+  startInstantiateCount: 100
   poolContainer: {fileID: 1831741369}
 --- !u!114 &363245579
 MonoBehaviour:
@@ -568,6 +568,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpawner: {fileID: 363245579}
   bulletDestroyer: {fileID: 363245583}
+  bulletPool: {fileID: 363245578}
   gameManager: {fileID: 3951702117947426123}
 --- !u!114 &363245581
 MonoBehaviour:

@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using ShootEmUp.GameSystem;
 using ShootEmUp.GameSystem.Listeners;
 using UnityEngine;
 
 namespace ShootEmUp.Common
 {
-    public class Pool : MonoBehaviour, IGameFixedUpdateListener
+    public class Pool : MonoBehaviour,IGameFixedUpdateListener
     {
-        public HashSet<GameObject> ActiveEntityes { get; } = new();
+        public HashSet<GameObject> ActiveEntities { get; } = new();
         public List<GameObject> CacheEntities { get; } = new();
         
         [SerializeField] private GameObject prefab;
@@ -19,11 +21,11 @@ namespace ShootEmUp.Common
         {
             Initialize();
         }
-
-        void IGameFixedUpdateListener.OnFixedUpdate(float deltaTime)
+        
+        public void OnFixedUpdate(float deltaTime)
         {
             CacheEntities.Clear();
-            CacheEntities.AddRange(ActiveEntityes);
+            CacheEntities.AddRange(ActiveEntities);
         }
 
         private void Initialize()

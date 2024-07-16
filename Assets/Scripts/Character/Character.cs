@@ -12,10 +12,11 @@ namespace ShootEmUp.Character
         [SerializeField] private WeaponComponent weaponComponent;
         [SerializeField] private MoveComponent moveComponent;
         [SerializeField] private TeamComponent teamComponent;
+        [SerializeField] private HitPointsComponent hitPointsComponent;
         [SerializeField] private InputManager inputManager;
         [SerializeField] private BulletSpawner bulletSpawner;
         [SerializeField] private BulletConfig bulletConfig;
-
+        
         void IGameFixedUpdateListener.OnFixedUpdate(float deltaTime)
         {
             Move();
