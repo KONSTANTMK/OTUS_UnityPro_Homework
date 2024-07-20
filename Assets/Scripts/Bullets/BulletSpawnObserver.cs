@@ -32,12 +32,14 @@ namespace ShootEmUp.Bullets
         {
             gameManager.AddListeners(bullet.GetComponents<IGameListener>().ToList());
             bullet.GetComponent<Bullet>().OnCollisionEntered += bulletDestroyer.DestroyBullet;
+            bullet.GetComponent<Bullet>().OnNeedDestroy += bulletDestroyer.DestroyBullet;
         }
 
         private void OnDestroyed(GameObject bullet)
         {
             gameManager.RemoveListeners(bullet.GetComponents<IGameListener>().ToList());
             bullet.GetComponent<Bullet>().OnCollisionEntered -= bulletDestroyer.DestroyBullet;
+            bullet.GetComponent<Bullet>().OnNeedDestroy -= bulletDestroyer.DestroyBullet;
         }
     }
 }
