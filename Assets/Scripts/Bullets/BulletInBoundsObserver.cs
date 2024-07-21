@@ -8,8 +8,8 @@ namespace ShootEmUp.Bullets
         [SerializeField] private BulletDestroyer bulletDestroyer;
         [SerializeField] private BulletInBoundsCheacker bulletInBoundsCheacker;
         
-        void IGameStartListener.OnStartGame() => StartSubscribe();
-        void IGameFinishListener.OnFinishGame() => StopSubscribe();
+        public void OnStartGame() => StartSubscribe();
+        public void OnFinishGame() => StopSubscribe();
 
         private void StartSubscribe()
         {

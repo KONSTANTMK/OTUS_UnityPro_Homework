@@ -12,7 +12,7 @@ namespace ShootEmUp.Bullets
         [SerializeField] private LevelBounds levelBounds;
         [SerializeField] private Pool bulletPool;
 
-        void IGameFixedUpdateListener.OnFixedUpdate(float deltaTime)
+        public void OnFixedUpdate(float deltaTime)
         {
             IsBulletsInBounds();
         }

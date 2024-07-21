@@ -6,29 +6,33 @@ using UnityEngine.Serialization;
 
 namespace ShootEmUp.Bullets
 {
-    public class BulletMoveController : MonoBehaviour, IGamePauseListener, IGameResumeListener
+    public class BulletMoveController : MonoBehaviour,IGameFixedUpdateListener, IGamePauseListener, IGameResumeListener
+
     {
-        [SerializeField] private new Rigidbody2D rigidbody = new();
-        private Vector2 oldVelocity;
-        void IGamePauseListener.OnPauseGame() => PauseFlying();
-        void IGameResumeListener.OnResumeGame() => ResumeFlying();
+        [FormerlySerializedAs("rigidbody")] [SerializeField]
+        private Rigidbody2D rigidbodyComponent;
+        [SerializeField]
+        private Vector2 savedVelocity;
+
+        public void OnFixedUpdate(float deltaTime)
+        {
+            savedVelocity = rigidbodyComponent.velocity;
+        }
+        public void OnPauseGame()
+        {
+            rigidbodyComponent.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+
+        public void OnResumeGame()
+        {
+            rigidbodyComponent.constraints = RigidbodyConstraints2D.None;
+            rigidbodyComponent.velocity = savedVelocity;
+      
+        }
         
         public void SetVelocity(Vector2 velocity)
         {
-            rigidbody.velocity = velocity;
+            rigidbodyComponent.velocity = velocity;
         }
-        
-        private void PauseFlying()
-        {
-            oldVelocity = rigidbody.velocity;
-            rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
-        }
-
-        private void ResumeFlying()
-        {
-            rigidbody.constraints = RigidbodyConstraints2D.None;
-            rigidbody.velocity = oldVelocity;
-        }
-        
     }
 }

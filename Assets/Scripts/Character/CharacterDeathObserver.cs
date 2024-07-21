@@ -9,17 +9,17 @@ namespace ShootEmUp.Character
     {
         [SerializeField] private GameManager gameManager;
         [SerializeField] private HitPointsComponent hitPointsComponent;
-        void IGameStartListener.OnStartGame() => StartSubscribe();
-        void IGameFinishListener.OnFinishGame() => StopSubscribe();
+        public void OnStartGame() => StartSubscribe();
+        public void OnFinishGame() => StopSubscribe();
         
         private void StartSubscribe()
         {
-            GetComponent<HitPointsComponent>().HpEmpty += gameManager.FinishGame;
+            hitPointsComponent.HpEmpty += gameManager.FinishGame;
         }
 
         private void StopSubscribe()
         {
-            GetComponent<HitPointsComponent>().HpEmpty -= gameManager.FinishGame;
+            hitPointsComponent.HpEmpty -= gameManager.FinishGame;
         }
     }
 }

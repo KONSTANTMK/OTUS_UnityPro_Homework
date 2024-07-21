@@ -1,4 +1,3 @@
-using System;
 using ShootEmUp.GameSystem.Listeners;
 using UnityEngine;
 
@@ -21,7 +20,7 @@ namespace ShootEmUp.Level
             Initialize();
         }
 
-        void IGameFixedUpdateListener.OnFixedUpdate(float deltaTime)
+        public void OnFixedUpdate(float deltaTime)
         {
             Move();
         }

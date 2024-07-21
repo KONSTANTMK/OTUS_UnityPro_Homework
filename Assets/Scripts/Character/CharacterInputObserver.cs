@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using ShootEmUp.GameSystem;
 using ShootEmUp.GameSystem.Listeners;
-using UnityEngine.Serialization;
 
 namespace ShootEmUp.Character
 {
@@ -10,8 +9,8 @@ namespace ShootEmUp.Character
         [SerializeField] private Character character;
         [SerializeField] private InputManager inputManager;
         
-        void IGameStartListener.OnStartGame() => StartSubscribe();
-        void IGameFinishListener.OnFinishGame() => StopSubscribe();
+        public void OnStartGame() => StartSubscribe();
+        public void OnFinishGame() => StopSubscribe();
         
         private void StartSubscribe()
         {

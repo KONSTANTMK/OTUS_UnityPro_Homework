@@ -10,7 +10,7 @@ namespace ShootEmUp.GameSystem
 
         public event Action ShootKeyDown;
         
-        void IGameUpdateListener.OnUpdate(float deltaTime) => HandleInput();
+        public void OnUpdate(float deltaTime) => HandleInput();
 
         private void HandleInput()
         {

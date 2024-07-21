@@ -2,6 +2,7 @@
 using UnityEngine;
 using ShootEmUp.Common;
 
+
 namespace ShootEmUp.Bullets
 {
     public class BulletSpawner : MonoBehaviour
@@ -11,11 +12,11 @@ namespace ShootEmUp.Bullets
 
         [SerializeField] private Transform worldTransform;
         
-        public void SpawnBullet(BulletConfig config, Vector2 position, Vector2 velocity, bool isPlayer)
+        public void SpawnBullet(Vector2 position, BulletConfig config, Vector2 velocity, bool isPlayer)
         {
             if (!bulletPool.TryDequeue(out var bulletObject)) return;
-            Bullet bulletComponent = bulletObject.GetComponent<Bullet>();
-            bulletObject.transform.SetParent(this.worldTransform);
+            var bulletComponent = bulletObject.GetComponent<Bullet>();
+            bulletObject.transform.SetParent(worldTransform);
             bulletObject.transform.position = position;
             bulletObject.GetComponent<SpriteRenderer>().color = config.color;
             bulletObject.layer = (int)config.physicsLayer;

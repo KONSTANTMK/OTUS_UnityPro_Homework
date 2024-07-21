@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using ShootEmUp.GameSystem;
 using ShootEmUp.GameSystem.Listeners;
 using UnityEngine;
 

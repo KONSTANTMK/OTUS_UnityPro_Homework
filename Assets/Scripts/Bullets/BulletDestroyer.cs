@@ -13,11 +13,9 @@ namespace ShootEmUp.Bullets
         
         public void DestroyBullet(GameObject bullet)
         {
-            if (this.bulletPool.ActiveEntities.Remove(bullet))
-            {
-                bulletPool.ReturnToPull(bullet);
-                OnBulletDestroyed?.Invoke(bullet);
-            }
+            if (!bulletPool.ActiveEntities.Remove(bullet)) return;
+            bulletPool.ReturnToPull(bullet);
+            OnBulletDestroyed?.Invoke(bullet);
         }
     }
 }

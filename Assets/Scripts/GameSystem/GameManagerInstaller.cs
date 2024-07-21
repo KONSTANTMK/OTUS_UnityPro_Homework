@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using ShootEmUp.GameSystem.Listeners;
 using UnityEngine;
@@ -8,9 +7,14 @@ namespace ShootEmUp.GameSystem
     public sealed class GameManagerInstaller : MonoBehaviour
     {
         [SerializeField] private GameManager gameManager;
+        [SerializeField] private GameObject[] installObjects;
         private void Awake()
         {
-            gameManager.AddListeners(GetComponentsInChildren<IGameListener>().ToList());
+            foreach (GameObject installObject in installObjects)
+            {
+                gameManager.AddListeners(installObject.GetComponents<IGameListener>().ToList());
+                gameManager.AddListeners(installObject.GetComponentsInChildren<IGameListener>().ToList());
+            }
         }
     }
 }

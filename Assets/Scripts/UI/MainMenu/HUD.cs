@@ -1,26 +1,29 @@
 using ShootEmUp.GameSystem.Listeners;
 using UnityEngine;
 
-namespace ShootEmUp.UI.MainMenu 
+namespace ShootEmUp.UI
 {
     public class HUD : MonoBehaviour, IGameStartListener,IGamePauseListener,IGameResumeListener,IGameFinishListener
     {
-        void IGameStartListener.OnStartGame()
+        [SerializeField] private GameObject pauseButton;
+        public GameObject PauseButton => pauseButton;
+        public void OnStartGame()
         {
+            pauseButton.SetActive(true);
             gameObject.SetActive(true);
         }
 
-        void IGamePauseListener.OnPauseGame()
+        public void OnPauseGame()
         {
             gameObject.SetActive(false);
         }
 
-        void IGameResumeListener.OnResumeGame()
+        public void OnResumeGame()
         {
             gameObject.SetActive(true);
         }
         
-        void IGameFinishListener.OnFinishGame()
+        public void OnFinishGame()
         {
             gameObject.SetActive(false);
         }

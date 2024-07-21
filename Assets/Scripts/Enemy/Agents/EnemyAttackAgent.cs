@@ -8,7 +8,7 @@ namespace ShootEmUp.Enemy
 {
     public sealed class EnemyAttackAgent : MonoBehaviour,IGameFinishListener, IGameFixedUpdateListener
     {
-        public event Action<BulletConfig,Vector2,Vector2,bool> OnFire;
+        public event Action<Vector2,BulletConfig,Vector2,bool> OnFire;
         
         [SerializeField] private WeaponComponent weaponComponent;
         [SerializeField] private TeamComponent teamComponent;
@@ -19,12 +19,12 @@ namespace ShootEmUp.Enemy
         private GameObject target;
         private float currentTime;
 
-        void IGameFinishListener.OnFinishGame()
+        public void OnFinishGame()
         {
             currentTime = countdown;
         }
         
-        void IGameFixedUpdateListener.OnFixedUpdate(float deltaTime)
+        public void OnFixedUpdate(float deltaTime)
         {
             Fire();
         }
@@ -36,24 +36,16 @@ namespace ShootEmUp.Enemy
         
         private void Fire()
         {
-            if (!moveAgent.IsReached)
-            {
-                return;
-            }
-            
-            if (!target.GetComponent<HitPointsComponent>().IsAlive())
-            {
-                return;
-            }
-
+            if (!moveAgent.IsReached) return;
+            if (!target.GetComponent<HitPointsComponent>().IsAlive()) return;
             currentTime -= Time.fixedDeltaTime;
             if (currentTime <= 0)
             {
                 Vector2 position = weaponComponent.Position;
                 Vector2 vector = (Vector2) target.transform.position - position;
                 Vector2 velocity = vector.normalized;
-                OnFire?.Invoke(bulletConfig, position, velocity, teamComponent.IsPlayer);
                 currentTime += countdown;
+                OnFire?.Invoke(position, bulletConfig, velocity, teamComponent.IsPlayer);
             }
         }
     }

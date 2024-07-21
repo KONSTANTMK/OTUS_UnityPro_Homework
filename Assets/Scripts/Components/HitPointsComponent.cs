@@ -11,7 +11,7 @@ namespace ShootEmUp.Components
 
         private int hitPoints;
 
-        void IGameStartListener.OnStartGame() => ResetHitPoints();
+        public void OnStartGame() => ResetHitPoints();
 
         public bool IsAlive()
         {

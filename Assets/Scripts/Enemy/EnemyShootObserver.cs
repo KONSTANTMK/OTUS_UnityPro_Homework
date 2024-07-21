@@ -1,8 +1,6 @@
 ﻿using ShootEmUp.Bullets;
-using ShootEmUp.Components;
 using ShootEmUp.GameSystem.Listeners;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ShootEmUp.Enemy
 {
@@ -12,8 +10,8 @@ namespace ShootEmUp.Enemy
         [SerializeField] private EnemyDestroyer enemyDestroyer;
         [SerializeField] private BulletSpawner bulletSpawner;
         
-        void IGameStartListener.OnStartGame() => StartSubscribe();
-        void IGameFinishListener.OnFinishGame() => StopSubscribe();
+        public void OnStartGame() => StartSubscribe();
+        public void OnFinishGame() => StopSubscribe();
         
         private void StartSubscribe()
         {

@@ -4,17 +4,22 @@ using ShootEmUp.GameSystem.Listeners;
 
 namespace ShootEmUp.Enemy
 {
-    public sealed class EnemyMoveAgent : MonoBehaviour,IGameFixedUpdateListener
+    public sealed class EnemyMoveAgent : MonoBehaviour,IGameFixedUpdateListener,IGameFinishListener
     {
-        public bool IsReached => isReached; 
-        
         [SerializeField] private MoveComponent moveComponent;
-
+        
         private Vector2 destination;
-
         private bool isReached;
         
-        void IGameFixedUpdateListener.OnFixedUpdate(float deltaTime)
+        public bool IsReached => isReached; 
+
+        public void OnFinishGame()
+        {
+            destination = Vector2.zero;
+            isReached = false;
+        }
+        
+        public void OnFixedUpdate(float deltaTime)
         {
             Move();
         }
@@ -26,19 +31,14 @@ namespace ShootEmUp.Enemy
         }
         private void Move()
         {
-            if (isReached)
-            {
-                return;
-            }
-            
-            Vector2 vector = destination - (Vector2) transform.position;
+            if (isReached) return;
+            var vector = destination - (Vector2) transform.position;
             if (vector.magnitude <= 0.25f)
             {
                 isReached = true;
                 return;
             }
-
-            Vector2 direction = vector.normalized * Time.fixedDeltaTime;
+            var direction = vector.normalized * Time.fixedDeltaTime;
             moveComponent.Move(direction);
         }
         

@@ -3,23 +3,27 @@ using ShootEmUp.Bullets;
 using ShootEmUp.Components;
 using ShootEmUp.GameSystem;
 using ShootEmUp.GameSystem.Listeners;
-using UnityEngine.Serialization;
 
 namespace ShootEmUp.Character
 {
-    public sealed class Character : MonoBehaviour, IGameFixedUpdateListener
+    public sealed class Character : MonoBehaviour, IGameFixedUpdateListener, IGameFinishListener
     {
+        [SerializeField] private Vector2 startPosition;
         [SerializeField] private WeaponComponent weaponComponent;
         [SerializeField] private MoveComponent moveComponent;
         [SerializeField] private TeamComponent teamComponent;
-        [SerializeField] private HitPointsComponent hitPointsComponent;
         [SerializeField] private InputManager inputManager;
         [SerializeField] private BulletSpawner bulletSpawner;
         [SerializeField] private BulletConfig bulletConfig;
         
-        void IGameFixedUpdateListener.OnFixedUpdate(float deltaTime)
+        public void OnFixedUpdate(float deltaTime)
         {
             Move();
+        }
+
+        public void OnFinishGame()
+        {
+            gameObject.transform.position = startPosition;
         }
 
         private void Move()
@@ -30,7 +34,7 @@ namespace ShootEmUp.Character
 
         public void Shot()
         {
-            bulletSpawner.SpawnBullet(bulletConfig, weaponComponent.Position,
+            bulletSpawner.SpawnBullet(weaponComponent.Position, bulletConfig, 
                 weaponComponent.Rotation * Vector3.up, teamComponent.IsPlayer);
         }
     }

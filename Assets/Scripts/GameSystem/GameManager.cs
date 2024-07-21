@@ -7,9 +7,7 @@ namespace ShootEmUp.GameSystem
 {
     public sealed class GameManager : MonoBehaviour
     {
-        public GameState State => state;
-        [SerializeField]
-        private GameState state;
+        [SerializeField] private GameState state;
 
         private readonly List<IGameListener> listeners = new();
         private readonly List<IGameUpdateListener> updateListeners = new();
@@ -32,30 +30,30 @@ namespace ShootEmUp.GameSystem
         
         private void FixedUpdate()
         {
-            if (this.state != GameState.PLAYING)
+            if (state != GameState.PLAYING)
             {
                 return;
             }
             
             var deltaTime = Time.fixedDeltaTime;
-            for (int i = 0, count = this.fixedUpdateListeners.Count; i < count; i++)
+            for (int i = 0, count = fixedUpdateListeners.Count; i < count; i++)
             {
-                var listener = this.fixedUpdateListeners[i];
+                var listener = fixedUpdateListeners[i];
                 listener.OnFixedUpdate(deltaTime);
             }
         }
         
         private void LateUpdate()
         {
-            if (this.state != GameState.PLAYING)
+            if (state != GameState.PLAYING)
             {
                 return;
             }
             
             var deltaTime = Time.deltaTime;
-            for (int i = 0, count = this.lateUpdateListeners.Count; i < count; i++)
+            for (int i = 0, count = lateUpdateListeners.Count; i < count; i++)
             {
-                var listener = this.lateUpdateListeners[i];
+                var listener = lateUpdateListeners[i];
                 listener.OnLateUpdate(deltaTime);
             }
         }
@@ -67,21 +65,21 @@ namespace ShootEmUp.GameSystem
                 return;
             }
             
-            this.listeners.Add(listener);
+            listeners.Add(listener);
 
             if (listener is IGameUpdateListener updateListener)
             {
-                this.updateListeners.Add(updateListener);
+                updateListeners.Add(updateListener);
             }
 
             if (listener is IGameFixedUpdateListener fixedUpdateListener)
             {
-                this.fixedUpdateListeners.Add(fixedUpdateListener);
+                fixedUpdateListeners.Add(fixedUpdateListener);
             }
 
             if (listener is IGameLateUpdateListener lateUpdateListener)
             {
-                this.lateUpdateListeners.Add(lateUpdateListener);
+                lateUpdateListeners.Add(lateUpdateListener);
             }
         }
         
@@ -105,21 +103,21 @@ namespace ShootEmUp.GameSystem
                 return;
             }
             
-            this.listeners.Remove(listener);
+            listeners.Remove(listener);
 
             if (listener is IGameUpdateListener updateListener)
             {
-                this.updateListeners.Remove(updateListener);
+                updateListeners.Remove(updateListener);
             }
 
             if (listener is IGameFixedUpdateListener fixedUpdateListener)
             {
-                this.fixedUpdateListeners.Remove(fixedUpdateListener);
+                fixedUpdateListeners.Remove(fixedUpdateListener);
             }
 
             if (listener is IGameLateUpdateListener lateUpdateListener)
             {
-                this.lateUpdateListeners.Remove(lateUpdateListener);
+                lateUpdateListeners.Remove(lateUpdateListener);
             }
         }
 
@@ -138,7 +136,7 @@ namespace ShootEmUp.GameSystem
         
         public void StartGame()
         {
-            foreach (var listener in this.listeners)
+            foreach (var listener in listeners)
             {
                 if (listener is IGameStartListener startListener)
                 {
@@ -146,12 +144,12 @@ namespace ShootEmUp.GameSystem
                 }
             }
 
-            this.state = GameState.PLAYING;
+            state = GameState.PLAYING;
         }
         
         public void PauseGame()
         {
-            foreach (var listener in this.listeners)
+            foreach (var listener in listeners)
             {
                 if (listener is IGamePauseListener pauseListener)
                 {
@@ -159,12 +157,12 @@ namespace ShootEmUp.GameSystem
                 }
             }
             
-            this.state = GameState.PAUSED;
+            state = GameState.PAUSED;
         }
         
         public void ResumeGame()
         {
-            foreach (var listener in this.listeners)
+            foreach (var listener in listeners)
             {
                 if (listener is IGameResumeListener resumeListener)
                 {
@@ -172,19 +170,19 @@ namespace ShootEmUp.GameSystem
                 }
             }
             
-            this.state = GameState.PLAYING;
+            state = GameState.PLAYING;
         }
         
         public void FinishGame(GameObject _)
         {
-            foreach (var listener in this.listeners)
+            foreach (var listener in listeners)
             {
                 if (listener is IGameFinishListener finishListener)
                 {
                     finishListener.OnFinishGame();
                 }
             }
-            this.state = GameState.FINISHED;
+            state = GameState.FINISHED;
         }
     }
 }
