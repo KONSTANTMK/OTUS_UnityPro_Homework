@@ -2,19 +2,20 @@ using System.Collections.Generic;
 using ShootEmUp.GameSystem.Data;
 using ShootEmUp.GameSystem.Listeners;
 using UnityEngine;
+using Zenject;
 
 namespace ShootEmUp.GameSystem
 {
-    public sealed class GameManager : MonoBehaviour
+    public sealed class GameManager : MonoBehaviour, ITickable, IFixedTickable, ILateTickable
     {
-        [SerializeField] private GameState state;
+        private GameState state;
 
         private readonly List<IGameListener> listeners = new();
         private readonly List<IGameUpdateListener> updateListeners = new();
         private readonly List<IGameFixedUpdateListener> fixedUpdateListeners = new();
         private readonly List<IGameLateUpdateListener> lateUpdateListeners = new();
         
-        private void Update()
+        public void Tick()
         {
             if (state != GameState.PLAYING)
             {
@@ -27,8 +28,8 @@ namespace ShootEmUp.GameSystem
                 listener.OnUpdate(deltaTime);
             }
         }
-        
-        private void FixedUpdate()
+
+        public void FixedTick()
         {
             if (state != GameState.PLAYING)
             {
@@ -43,7 +44,7 @@ namespace ShootEmUp.GameSystem
             }
         }
         
-        private void LateUpdate()
+        public void LateTick()
         {
             if (state != GameState.PLAYING)
             {

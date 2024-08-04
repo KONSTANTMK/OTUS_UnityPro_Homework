@@ -1,6 +1,7 @@
 using System.Linq;
 using ShootEmUp.GameSystem.Listeners;
 using UnityEngine;
+using Zenject;
 
 namespace ShootEmUp.GameSystem
 {
