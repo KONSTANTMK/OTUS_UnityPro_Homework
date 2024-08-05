@@ -2,6 +2,7 @@
 using ShootEmUp.GameSystem;
 using ShootEmUp.GameSystem.Listeners;
 using UnityEngine;
+using Zenject;
 
 namespace ShootEmUp.Bullets
 {
@@ -9,7 +10,13 @@ namespace ShootEmUp.Bullets
     {
         [SerializeField] private BulletSpawner bulletSpawner;
         [SerializeField] private BulletDestroyer bulletDestroyer;
-        [SerializeField] private GameManager gameManager;
+        private GameManager gameManager;
+        
+        [Inject]
+        public void Construct(GameManager gameManager)
+        {
+            this.gameManager = gameManager;
+        }
 
         public void OnStartGame() => StartSubscribe();
         public void OnFinishGame() => StopSubscribe();

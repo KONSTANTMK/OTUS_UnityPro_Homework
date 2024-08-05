@@ -6,7 +6,7 @@ using Zenject;
 
 namespace ShootEmUp.GameSystem
 {
-    public sealed class GameManager : MonoBehaviour, ITickable, IFixedTickable, ILateTickable
+    public sealed class GameManager : ITickable, IFixedTickable, ILateTickable
     {
         private GameState state;
 

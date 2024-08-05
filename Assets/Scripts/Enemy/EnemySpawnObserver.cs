@@ -3,6 +3,7 @@ using ShootEmUp.Components;
 using ShootEmUp.GameSystem;
 using ShootEmUp.GameSystem.Listeners;
 using UnityEngine;
+using Zenject;
 
 namespace ShootEmUp.Enemy
 {
@@ -10,7 +11,13 @@ namespace ShootEmUp.Enemy
     {
         [SerializeField] private EnemySpawner enemySpawner;
         [SerializeField] private EnemyDestroyer enemyDestroyer;
-        [SerializeField] private GameManager gameManager;
+        private GameManager gameManager;
+        
+        [Inject]
+        public void Construct(GameManager gameManager)
+        {
+            this.gameManager = gameManager;
+        }
         
         public void OnStartGame() => StartSubscribe();
         public void OnFinishGame() => StopSubscribe();

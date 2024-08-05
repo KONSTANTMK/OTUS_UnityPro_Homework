@@ -2,13 +2,21 @@
 using ShootEmUp.Components;
 using ShootEmUp.GameSystem;
 using ShootEmUp.GameSystem.Listeners;
+using Zenject;
 
 namespace ShootEmUp.Character
 {
     internal class CharacterDeathObserver:MonoBehaviour,IGameStartListener, IGameFinishListener
     {
-        [SerializeField] private GameManager gameManager;
+        private GameManager gameManager;
         [SerializeField] private HitPointsComponent hitPointsComponent;
+        
+        [Inject]
+        public void Construct(GameManager gameManager)
+        {
+            this.gameManager = gameManager;
+        }
+        
         public void OnStartGame() => StartSubscribe();
         public void OnFinishGame() => StopSubscribe();
         

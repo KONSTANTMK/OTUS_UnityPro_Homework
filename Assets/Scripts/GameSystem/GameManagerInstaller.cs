@@ -7,8 +7,14 @@ namespace ShootEmUp.GameSystem
 {
     public sealed class GameManagerInstaller : MonoBehaviour
     {
-        [SerializeField] private GameManager gameManager;
+        [SerializeField]private GameManager gameManager;
         [SerializeField] private GameObject[] installObjects;
+
+        [Inject]
+        public void Construct(GameManager gameManager)
+        {
+            this.gameManager = gameManager;
+        }
         private void Awake()
         {
             foreach (GameObject installObject in installObjects)

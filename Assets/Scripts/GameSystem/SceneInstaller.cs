@@ -8,7 +8,7 @@ namespace ShootEmUp.GameSystem
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<GameManager>().FromComponentsInHierarchy().AsSingle();
+            Container.BindInterfacesAndSelfTo<GameManager>().AsSingle();
         }
     }
 }

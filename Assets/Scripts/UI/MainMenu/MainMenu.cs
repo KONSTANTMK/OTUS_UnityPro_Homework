@@ -3,6 +3,7 @@ using ShootEmUp.GameSystem;
 using ShootEmUp.GameSystem.Listeners;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 namespace ShootEmUp.UI
 {
@@ -11,7 +12,13 @@ namespace ShootEmUp.UI
         [SerializeField] private GameObject startButton;
         [SerializeField] private GameObject resumeButton;
         [SerializeField] private GameObject timer;
-        [SerializeField] private GameManager gameManager;
+        private GameManager gameManager;
+        
+        [Inject]
+        public void Construct(GameManager gameManager)
+        {
+            this.gameManager = gameManager;
+        }
         
         public GameObject StartButton => startButton;
         public GameObject ResumeButton => resumeButton;

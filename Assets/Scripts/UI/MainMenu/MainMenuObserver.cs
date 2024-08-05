@@ -1,6 +1,7 @@
 using ShootEmUp.GameSystem;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace ShootEmUp.UI
 {
@@ -8,7 +9,13 @@ namespace ShootEmUp.UI
 
     {
         [SerializeField] private MainMenu mainMenu;
-        [SerializeField] private GameManager gameManager;
+        private GameManager gameManager;
+        
+        [Inject]
+        public void Construct(GameManager gameManager)
+        {
+            this.gameManager = gameManager;
+        }
 
         private void Awake()
         {
