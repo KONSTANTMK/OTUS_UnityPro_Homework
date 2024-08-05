@@ -207,7 +207,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3951702117947426123}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ShootEmUp.GameSystem.GameManager, Assembly-CSharp
         m_MethodName: PauseGame
         m_Mode: 1
@@ -703,8 +703,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpawner: {fileID: 363245579}
   bulletDestroyer: {fileID: 363245583}
-  bulletPool: {fileID: 363245578}
-  gameManager: {fileID: 3951702117947426123}
 --- !u!114 &363245581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1015,7 +1013,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawner: {fileID: 562298208}
   enemyDestroyer: {fileID: 562298211}
-  gameManager: {fileID: 3951702117947426123}
 --- !u!114 &562298211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1496,7 +1493,6 @@ MonoBehaviour:
   startButton: {fileID: 891185211}
   resumeButton: {fileID: 1532544907}
   timer: {fileID: 202453435}
-  gameManager: {fileID: 3951702117947426123}
 --- !u!114 &1144518024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1510,7 +1506,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 1144518023}
-  gameManager: {fileID: 3951702117947426123}
 --- !u!850595691 &1263964384
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -1953,7 +1948,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hud: {fileID: 1875946730}
-  gameManager: {fileID: 3951702117947426123}
 --- !u!1 &2062910605
 GameObject:
   m_ObjectHideFlags: 0
@@ -2544,7 +2538,7 @@ PrefabInstance:
         type: 3}
       propertyPath: gameManager
       value: 
-      objectReference: {fileID: 3951702117947426123}
+      objectReference: {fileID: 0}
     - target: {fileID: 1290407457030637144, guid: 9699e7e809fd44b2bbf3d30c951ecbd2,
         type: 3}
       propertyPath: bulletSystem
@@ -2580,7 +2574,7 @@ PrefabInstance:
         type: 3}
       propertyPath: gameManager
       value: 
-      objectReference: {fileID: 3951702117947426123}
+      objectReference: {fileID: 0}
     - target: {fileID: 3926786964091724599, guid: 9699e7e809fd44b2bbf3d30c951ecbd2,
         type: 3}
       propertyPath: hitPoints
@@ -2598,7 +2592,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3951702117947426122}
   - component: {fileID: 3951702117947426124}
-  - component: {fileID: 3951702117947426123}
   m_Layer: 0
   m_Name: '[GAME_SYSTEM]'
   m_TagString: Untagged
@@ -2624,19 +2617,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3951702117947426123
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3951702117947426121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 697fe7ba192e484db495320b9c01bcd2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  state: 0
 --- !u!114 &3951702117947426124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2649,7 +2629,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6603b2f41674d218152a93d8b529e7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 3951702117947426123}
   installObjects:
   - {fileID: 519420028}
   - {fileID: 3951702117947426121}

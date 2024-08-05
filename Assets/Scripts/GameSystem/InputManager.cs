@@ -1,23 +1,15 @@
 using System;
+using ShootEmUp.Common;
 using ShootEmUp.GameSystem.Listeners;
 using UnityEngine;
-using Zenject;
 
 namespace ShootEmUp.GameSystem
 {
-    public sealed class InputManager : IGameUpdateListener, IGameStartListener
+    public sealed class InputManager : ListenableObject, IGameUpdateListener 
     {
         public float HorizontalDirection { get; private set; }
-        private GameManager gameManager;
 
         public event Action ShootKeyDown;
-        
-        [Inject]
-        public void Construct(GameManager gameManager)
-        {
-            this.gameManager = gameManager;
-            this.gameManager.AddListener(this);
-        }
         
         public void OnUpdate(float deltaTime) => HandleInput();
 
@@ -41,10 +33,6 @@ namespace ShootEmUp.GameSystem
                 HorizontalDirection = 0;
             }
         }
-
-        public void OnStartGame()
-        {
-            Debug.Log("Работает");
-        }
+        
     }
 }
