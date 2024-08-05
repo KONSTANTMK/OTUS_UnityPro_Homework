@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ShootEmUp.GameSystem
 {
-    public sealed class InputManager : ListenableObject, IGameUpdateListener 
+    public sealed class InputManager : GameListener, IGameUpdateListener 
     {
         public float HorizontalDirection { get; private set; }
 

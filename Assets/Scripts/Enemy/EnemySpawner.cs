@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using ShootEmUp.Common;
 using ShootEmUp.GameSystem.Listeners;
+using Zenject;
 
 namespace ShootEmUp.Enemy
 {
@@ -15,6 +16,14 @@ namespace ShootEmUp.Enemy
         [SerializeField] private Transform worldTransform;
         [SerializeField] private Pool enemyPool;
         [SerializeField] private int spawnCountdown;
+        private EnemySpawnObserver enemySpawnObserver;
+        
+        [Inject]
+        public void Construct(EnemySpawnObserver enemySpawnObserver)
+        {
+            this.enemySpawnObserver = enemySpawnObserver;
+        }
+        
         public void OnStartGame() => StartCoroutine("createEnemy");
         public void OnFinishGame() => StopCoroutine("createEnemy");
         public void OnPauseGame() => StopCoroutine("createEnemy");

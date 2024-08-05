@@ -1,22 +1,22 @@
 ﻿using System.Linq;
+using ShootEmUp.Common;
 using ShootEmUp.Components;
-using ShootEmUp.GameSystem;
 using ShootEmUp.GameSystem.Listeners;
 using UnityEngine;
 using Zenject;
 
 namespace ShootEmUp.Enemy
 {
-    public class EnemySpawnObserver : MonoBehaviour,IGameStartListener, IGameFinishListener
+    public class EnemySpawnObserver : GameListener, IGameStartListener, IGameFinishListener
     {
-        [SerializeField] private EnemySpawner enemySpawner;
-        [SerializeField] private EnemyDestroyer enemyDestroyer;
-        private GameManager gameManager;
+        private EnemySpawner enemySpawner;
+        private EnemyDestroyer enemyDestroyer;
         
         [Inject]
-        public void Construct(GameManager gameManager)
+        public void Construct(EnemySpawner enemySpawner, EnemyDestroyer enemyDestroyer)
         {
-            this.gameManager = gameManager;
+            this.enemySpawner = enemySpawner;
+            this.enemyDestroyer = enemyDestroyer;
         }
         
         public void OnStartGame() => StartSubscribe();

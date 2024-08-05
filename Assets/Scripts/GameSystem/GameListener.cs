@@ -4,9 +4,9 @@ using Zenject;
 
 namespace ShootEmUp.Common
 {
-    public abstract class ListenableObject : IGameListener
+    public abstract class GameListener : IGameListener
     {
-        private GameManager gameManager;
+        public GameManager gameManager;
         
         [Inject]
         private void Construct(GameManager gameManager)
