@@ -11,6 +11,7 @@ namespace ShootEmUp.GameSystem
         {
             Container.BindInterfacesAndSelfTo<GameManager>().AsSingle();
             Container.Bind<InputManager>().AsSingle();
+            
             Container.Bind<EnemySpawner>().FromComponentInHierarchy().AsSingle();
             Container.Bind<EnemyDestroyer>().FromComponentInHierarchy().AsSingle();
             Container.Bind<EnemySpawnObserver>().FromNew().AsSingle();
