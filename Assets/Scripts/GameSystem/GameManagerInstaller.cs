@@ -7,7 +7,7 @@ namespace ShootEmUp.GameSystem
 {
     public sealed class GameManagerInstaller : MonoBehaviour
     {
-        [SerializeField]private GameManager gameManager;
+        private GameManager gameManager;
         [SerializeField] private GameObject[] installObjects;
 
         [Inject]

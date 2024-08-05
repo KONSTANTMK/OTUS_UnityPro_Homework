@@ -3,6 +3,7 @@ using ShootEmUp.Bullets;
 using ShootEmUp.Components;
 using ShootEmUp.GameSystem;
 using ShootEmUp.GameSystem.Listeners;
+using Zenject;
 
 namespace ShootEmUp.Character
 {
@@ -12,9 +13,16 @@ namespace ShootEmUp.Character
         [SerializeField] private WeaponComponent weaponComponent;
         [SerializeField] private MoveComponent moveComponent;
         [SerializeField] private TeamComponent teamComponent;
-        [SerializeField] private InputManager inputManager;
+        private InputManager inputManager;
         [SerializeField] private BulletSpawner bulletSpawner;
         [SerializeField] private BulletConfig bulletConfig;
+        
+        
+        [Inject]
+        public void Construct(InputManager inputManager)
+        {
+            this.inputManager = inputManager;
+        }
         
         public void OnFixedUpdate(float deltaTime)
         {
