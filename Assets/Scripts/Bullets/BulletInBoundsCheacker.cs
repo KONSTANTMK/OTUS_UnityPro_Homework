@@ -8,16 +8,17 @@ using Zenject;
 
 namespace ShootEmUp.Bullets
 {
-    public sealed class BulletInBoundsCheacker : MonoBehaviour,IGameFixedUpdateListener
+    public sealed class BulletInBoundsCheacker : GameListener,IGameFixedUpdateListener
     {
         public event Action<GameObject> OnBulletOutBounds;
-        [SerializeField] private LevelBounds levelBounds;
+        private LevelBounds levelBounds;
         private BulletPool bulletPool;
         
         [Inject]
-        public void Construct(BulletPool bulletPool)
+        public void Construct(BulletPool bulletPool, LevelBounds levelBounds)
         {
             this.bulletPool = bulletPool;
+            this.levelBounds = levelBounds;
         }
 
         public void OnFixedUpdate(float deltaTime)

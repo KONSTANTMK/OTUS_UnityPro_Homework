@@ -631,12 +631,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 363245576}
-  - component: {fileID: 363245579}
-  - component: {fileID: 363245583}
-  - component: {fileID: 363245580}
-  - component: {fileID: 363245582}
-  - component: {fileID: 363245581}
-  - component: {fileID: 363245584}
+  - component: {fileID: 363245585}
   m_Layer: 0
   m_Name: BulletSystem
   m_TagString: Untagged
@@ -660,7 +655,7 @@ Transform:
   m_Father: {fileID: 3951702117947426122}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &363245579
+--- !u!114 &363245585
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -669,77 +664,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 363245575}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb251d7c70aa4c42867597cf86e59a8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &363245580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 363245575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1a1cd040f794a22a0bab1d8551b3123, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletSpawner: {fileID: 363245579}
-  bulletDestroyer: {fileID: 363245583}
---- !u!114 &363245581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 363245575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83381e5dab2344b29ca557810a051ead, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletDestroyer: {fileID: 363245583}
-  bulletInBoundsCheacker: {fileID: 363245582}
---- !u!114 &363245582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 363245575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37bd15923a144ffbab0333dc6e74e641, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelBounds: {fileID: 2572952653776768186}
---- !u!114 &363245583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 363245575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc20a56fdceb4726b254dd30984dddbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPool: {fileID: 0}
---- !u!114 &363245584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 363245575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22c985fc84684e3f83bffba81e85ec5e, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ea19dbeb6d144409508c44a4a8f6968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   startInstantiateCount: 100
-  prefab: {fileID: 2743036428890533592, guid: 5fe72886874b4e445b06cf777ca4920d, type: 3}
+  prefabToInstantiate: {fileID: 2743036428890533592, guid: 5fe72886874b4e445b06cf777ca4920d,
+    type: 3}
   poolContainer: {fileID: 1831741369}
 --- !u!1 &373563738
 GameObject:
@@ -937,7 +867,6 @@ GameObject:
   m_Component:
   - component: {fileID: 562298204}
   - component: {fileID: 562298210}
-  - component: {fileID: 562298209}
   m_Layer: 0
   m_Name: EnemySystem
   m_TagString: Untagged
@@ -961,21 +890,6 @@ Transform:
   m_Father: {fileID: 3951702117947426122}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &562298209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 562298203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46bcb4b90a43413e926ac691c5318d7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startInstantiateCount: 7
-  prefab: {fileID: 559606060570185700, guid: 87fe189881a524806800482ac8eaaa83, type: 3}
-  poolContainer: {fileID: 178513672}
 --- !u!114 &562298210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -988,6 +902,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6d6c34f73a64335854d66463a5c1fe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startInstantiateCount: 7
+  prefabToInstantiate: {fileID: 559606060570185700, guid: 87fe189881a524806800482ac8eaaa83,
+    type: 3}
+  poolContainer: {fileID: 178513672}
 --- !u!1 &883274639
 GameObject:
   m_ObjectHideFlags: 0
@@ -2519,7 +2437,7 @@ PrefabInstance:
         type: 3}
       propertyPath: bulletSpawner
       value: 
-      objectReference: {fileID: 363245579}
+      objectReference: {fileID: 0}
     - target: {fileID: 1290407457030637144, guid: 9699e7e809fd44b2bbf3d30c951ecbd2,
         type: 3}
       propertyPath: startPosition.y

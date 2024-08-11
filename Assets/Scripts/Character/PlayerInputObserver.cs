@@ -1,18 +1,20 @@
 ﻿using UnityEngine;
 using ShootEmUp.GameSystem;
 using ShootEmUp.GameSystem.Listeners;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace ShootEmUp.Character
 {
-    internal class CharacterInputObserver : MonoBehaviour, IGameStartListener, IGameFinishListener
+    internal class PlayerInputObserver : MonoBehaviour, IGameStartListener, IGameFinishListener
     {
-        [SerializeField] private Character character;
+        private Player player;
         private InputManager inputManager;
         
         [Inject]
-        public void Construct(InputManager inputManager)
+        public void Construct(Player player,InputManager inputManager)
         {
+            this.player = player;
             this.inputManager = inputManager;
         }
         
@@ -21,12 +23,12 @@ namespace ShootEmUp.Character
         
         private void StartSubscribe()
         {
-            inputManager.ShootKeyDown += character.Shot;
+            inputManager.ShootKeyDown += player.Shot;
         }
 
         private void StopSubscribe()
         {
-            inputManager.ShootKeyDown -= character.Shot;
+            inputManager.ShootKeyDown -= player.Shot;
         }
     }
 }

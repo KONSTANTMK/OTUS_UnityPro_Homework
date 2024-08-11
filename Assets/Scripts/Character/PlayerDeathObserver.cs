@@ -6,7 +6,7 @@ using Zenject;
 
 namespace ShootEmUp.Character
 {
-    internal class CharacterDeathObserver:MonoBehaviour,IGameStartListener, IGameFinishListener
+    internal class PlayerDeathObserver:MonoBehaviour,IGameStartListener, IGameFinishListener
     {
         private GameManager gameManager;
         [SerializeField] private HitPointsComponent hitPointsComponent;

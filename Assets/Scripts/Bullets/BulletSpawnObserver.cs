@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using ShootEmUp.Common;
 using ShootEmUp.GameSystem;
 using ShootEmUp.GameSystem.Listeners;
 using UnityEngine;
@@ -6,16 +7,16 @@ using Zenject;
 
 namespace ShootEmUp.Bullets
 {
-    public class BulletSpawnObserver : MonoBehaviour, IGameStartListener, IGameFinishListener
+    public class BulletSpawnObserver : GameListener , IGameStartListener, IGameFinishListener
     {
-        [SerializeField] private BulletSpawner bulletSpawner;
-        [SerializeField] private BulletDestroyer bulletDestroyer;
-        private GameManager gameManager;
+        private BulletSpawner bulletSpawner;
+        private BulletDestroyer bulletDestroyer;
         
         [Inject]
-        public void Construct(GameManager gameManager)
+        public void Construct(BulletSpawner bulletSpawner, BulletDestroyer bulletDestroyer)
         {
-            this.gameManager = gameManager;
+            this.bulletSpawner = bulletSpawner;
+            this.bulletDestroyer = bulletDestroyer;
         }
 
         public void OnStartGame() => StartSubscribe();

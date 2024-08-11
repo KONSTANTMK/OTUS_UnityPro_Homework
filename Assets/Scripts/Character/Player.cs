@@ -7,21 +7,22 @@ using Zenject;
 
 namespace ShootEmUp.Character
 {
-    public sealed class Character : MonoBehaviour, IGameFixedUpdateListener, IGameFinishListener
+    public sealed class Player : MonoBehaviour, IGameFixedUpdateListener, IGameFinishListener
     {
         [SerializeField] private Vector2 startPosition;
         [SerializeField] private WeaponComponent weaponComponent;
         [SerializeField] private MoveComponent moveComponent;
         [SerializeField] private TeamComponent teamComponent;
-        private InputManager inputManager;
-        [SerializeField] private BulletSpawner bulletSpawner;
         [SerializeField] private BulletConfig bulletConfig;
+        private InputManager inputManager;
+        private BulletSpawner bulletSpawner;
         
         
         [Inject]
-        public void Construct(InputManager inputManager)
+        public void Construct(InputManager inputManager, BulletSpawner bulletSpawner)
         {
             this.inputManager = inputManager;
+            this.bulletSpawner = bulletSpawner;
         }
         
         public void OnFixedUpdate(float deltaTime)

@@ -1,5 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using ShootEmUp.Character;
 using UnityEngine;
 using ShootEmUp.Common;
 using ShootEmUp.GameSystem.Listeners;
@@ -12,7 +13,7 @@ namespace ShootEmUp.Enemy
         public event Action<GameObject> OnEnemySpawned;
         
         private EnemyPositions enemyPositions;
-        private GameObject character;
+        private GameObject player;
         private WorldTransform worldTransform;
         private EnemyPool enemyPool;
         private int spawnCountdown = 4;
@@ -21,13 +22,13 @@ namespace ShootEmUp.Enemy
         [Inject]
         public void Construct(
             WorldTransform worldTransform,
-            Character.Character character,
+            Player player,
             EnemyPositions enemyPositions,
             EnemyPool enemyPool
             )
         {
             this.worldTransform = worldTransform;
-            this.character = character.gameObject;
+            this.player = player.gameObject;
             this.enemyPositions = enemyPositions;
             this.enemyPool = enemyPool;
         }
@@ -46,7 +47,7 @@ namespace ShootEmUp.Enemy
             enemyObject.transform.position = spawnPosition.position;
             var attackPosition = enemyPositions.RandomAttackPosition();
             enemyObject.GetComponent<EnemyMoveAgent>().SetDestination(attackPosition.position);
-            enemyObject.GetComponent<EnemyAttackAgent>().SetTarget(character);
+            enemyObject.GetComponent<EnemyAttackAgent>().SetTarget(player);
             enemyPool.ActiveEntities.Add(enemyObject);
             OnEnemySpawned?.Invoke(enemyObject);
             await UniTask.WaitForSeconds(spawnCountdown);

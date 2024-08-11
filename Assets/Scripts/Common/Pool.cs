@@ -1,25 +1,34 @@
 ﻿using System.Collections.Generic;
 using ShootEmUp.GameSystem.Listeners;
 using UnityEngine;
+using Zenject;
 
 namespace ShootEmUp.Common
 {
-    public abstract class Pool : MonoBehaviour,IGameFixedUpdateListener
+    public class Pool : GameListener, IGameFixedUpdateListener,IInitializable
     {
         public HashSet<GameObject> ActiveEntities { get; } = new();
         public List<GameObject> CacheEntities { get; } = new();
         
-        [SerializeField] private int startInstantiateCount;
+        private int startInstantiateCount;
         
-        [SerializeField] private GameObject prefab;
+        private GameObject prefab;
         
-        [SerializeField] private Transform poolContainer;
+        private Transform poolContainer;
 
         private readonly Queue<GameObject> entityPool = new();
 
-        private void Awake()
+        private DiContainer container;
+        
+        [Inject]
+        public void Construct(DiContainer container)
         {
-            Initialize();
+            this.container = container;
+        }
+        
+        public void Initialize()
+        {
+            Fill();
         }
         
         public void OnFixedUpdate(float deltaTime)
@@ -27,12 +36,12 @@ namespace ShootEmUp.Common
             CacheEntities.Clear();
             CacheEntities.AddRange(ActiveEntities);
         }
-
-        private void Initialize()
+        
+        private void Fill()
         {
             for (var i = 0; i < startInstantiateCount; i++)
             {
-                var entity = Instantiate(prefab, poolContainer);
+                var entity = container.InstantiatePrefab(prefab, poolContainer);
                 entityPool.Enqueue(entity);
             }
         }
@@ -46,6 +55,21 @@ namespace ShootEmUp.Common
         {
             entity.transform.SetParent(poolContainer);
             entityPool.Enqueue(entity);
+        }
+
+        public void SetPrefab(GameObject prefab)
+        {
+            this.prefab = prefab;
+        }
+        
+        public void SetStartInstantiateCount(int startInstantiateCount)
+        {
+            this.startInstantiateCount = startInstantiateCount;
+        }
+        
+        public void SetPoolContainer(Transform poolContainer)
+        {
+            this.poolContainer = poolContainer;
         }
     }
 }

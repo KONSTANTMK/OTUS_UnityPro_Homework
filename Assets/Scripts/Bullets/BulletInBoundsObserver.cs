@@ -1,12 +1,20 @@
-﻿using ShootEmUp.GameSystem.Listeners;
-using UnityEngine;
+﻿using ShootEmUp.Common;
+using ShootEmUp.GameSystem.Listeners;
+using Zenject;
 
 namespace ShootEmUp.Bullets
 {
-    public class BulletInBoundsObserver : MonoBehaviour,IGameStartListener, IGameFinishListener
+    public class BulletInBoundsObserver : GameListener, IGameStartListener, IGameFinishListener
     {
-        [SerializeField] private BulletDestroyer bulletDestroyer;
-        [SerializeField] private BulletInBoundsCheacker bulletInBoundsCheacker;
+        private BulletDestroyer bulletDestroyer;
+        private BulletInBoundsCheacker bulletInBoundsCheacker;
+        
+        [Inject]
+        public void Construct(BulletDestroyer bulletDestroyer, BulletInBoundsCheacker bulletInBoundsCheacker)
+        {
+            this.bulletDestroyer = bulletDestroyer;
+            this.bulletInBoundsCheacker = bulletInBoundsCheacker;
+        }
         
         public void OnStartGame() => StartSubscribe();
         public void OnFinishGame() => StopSubscribe();

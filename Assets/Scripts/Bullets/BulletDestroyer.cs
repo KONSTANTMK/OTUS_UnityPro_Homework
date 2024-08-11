@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Linq;
 using UnityEngine;
-using ShootEmUp.Common;
 using ShootEmUp.Enemy;
-using ShootEmUp.GameSystem.Listeners;
 using Zenject;
 
 namespace ShootEmUp.Bullets
 {
-    public sealed class BulletDestroyer : MonoBehaviour
+    public sealed class BulletDestroyer
     {
         public event Action<GameObject> OnBulletDestroyed;
-        [SerializeField] private Pool bulletPool;
+        private BulletPool bulletPool;
         
         [Inject]
         public void Construct(BulletPool bulletPool)

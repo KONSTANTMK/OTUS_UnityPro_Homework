@@ -7,23 +7,17 @@ using Zenject;
 
 namespace ShootEmUp.Bullets
 {
-    public class BulletSpawner : MonoBehaviour
+    public class BulletSpawner
     {
         public event Action<GameObject> OnBulletSpawned;
         
         private BulletPool bulletPool;
-        
-        [Inject]
-        public void Construct(BulletPool bulletPool)
-        {
-            this.bulletPool = bulletPool;
-        }
-
         private WorldTransform worldTransform;
         
         [Inject]
-        public void Construct(WorldTransform worldTransform)
+        public void Construct(BulletPool bulletPool, WorldTransform worldTransform)
         {
+            this.bulletPool = bulletPool;
             this.worldTransform = worldTransform;
         }
         
