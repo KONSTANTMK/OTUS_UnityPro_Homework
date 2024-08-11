@@ -1,6 +1,4 @@
 using ShootEmUp.Common;
-using UnityEngine;
-using Zenject;
 
 namespace ShootEmUp.Enemy
 {

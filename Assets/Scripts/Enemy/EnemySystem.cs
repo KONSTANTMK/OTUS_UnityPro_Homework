@@ -13,7 +13,8 @@ namespace ShootEmUp.Enemy
 
         [SerializeField] private int startInstantiateCount;
         [SerializeField] private GameObject prefabToInstantiate;
-        [SerializeField] private Transform poolContainer; 
+        [SerializeField] private Transform poolContainer;
+        [SerializeField] private int spawnCountdown;
 
         [Inject]
         public void Construct(
@@ -27,6 +28,9 @@ namespace ShootEmUp.Enemy
             this.enemyPool.SetPrefab(prefabToInstantiate); 
             this.enemyPool.SetStartInstantiateCount(startInstantiateCount); 
             this.enemyPool.SetPoolContainer(poolContainer);
+
+            this.enemySpawner = enemySpawner;
+            this.enemySpawner.SetSpawnCountdown(spawnCountdown);
         }
         
         

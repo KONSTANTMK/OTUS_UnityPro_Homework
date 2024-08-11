@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 using ShootEmUp.GameSystem;
 using ShootEmUp.GameSystem.Listeners;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace ShootEmUp.Character
 {
-    internal class PlayerInputObserver : MonoBehaviour, IGameStartListener, IGameFinishListener
+    public sealed class PlayerInputObserver : MonoBehaviour, IGameStartListener, IGameFinishListener
     {
         private Player player;
         private InputManager inputManager;

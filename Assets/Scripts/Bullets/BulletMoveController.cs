@@ -1,12 +1,9 @@
-using System.Linq;
-using ShootEmUp.GameSystem;
 using ShootEmUp.GameSystem.Listeners;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ShootEmUp.Bullets
 {
-    public class BulletMoveController : MonoBehaviour,IGameFixedUpdateListener, IGamePauseListener, IGameResumeListener
+    public sealed class BulletMoveController : MonoBehaviour,IGameFixedUpdateListener, IGamePauseListener, IGameResumeListener
 
     {
         [SerializeField] private Rigidbody2D rigidbodyComponent;

@@ -1,13 +1,12 @@
 ﻿using System.Linq;
 using ShootEmUp.Common;
-using ShootEmUp.GameSystem;
 using ShootEmUp.GameSystem.Listeners;
 using UnityEngine;
 using Zenject;
 
 namespace ShootEmUp.Bullets
 {
-    public class BulletSpawnObserver : GameListener , IGameStartListener, IGameFinishListener
+    public sealed class BulletSpawnObserver : GameListener , IGameStartListener, IGameFinishListener
     {
         private BulletSpawner bulletSpawner;
         private BulletDestroyer bulletDestroyer;

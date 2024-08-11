@@ -1,7 +1,5 @@
 using ShootEmUp.Bullets;
 using ShootEmUp.Character;
-using ShootEmUp.Common;
-using ShootEmUp.Components;
 using ShootEmUp.Enemy;
 using ShootEmUp.Level;
 using Zenject;
@@ -12,8 +10,6 @@ namespace ShootEmUp.GameSystem
     {
         public override void InstallBindings()
         {
-            //Container.Bind<DiContainer>().AsCached();
-            
             Container.BindInterfacesAndSelfTo<GameManager>().AsSingle();
             Container.Bind<InputManager>().AsSingle();
 

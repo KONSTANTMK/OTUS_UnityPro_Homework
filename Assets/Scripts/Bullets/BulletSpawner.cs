@@ -1,13 +1,12 @@
 ﻿using System;
 using UnityEngine;
-using ShootEmUp.Common;
 using ShootEmUp.Enemy;
 using Zenject;
 
 
 namespace ShootEmUp.Bullets
 {
-    public class BulletSpawner
+    public sealed class BulletSpawner
     {
         public event Action<GameObject> OnBulletSpawned;
         

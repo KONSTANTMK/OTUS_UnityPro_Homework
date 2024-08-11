@@ -16,7 +16,7 @@ namespace ShootEmUp.Enemy
         private GameObject player;
         private WorldTransform worldTransform;
         private EnemyPool enemyPool;
-        private int spawnCountdown = 4;
+        private int spawnCountdown;
         private bool canSpawn = true;
         
         [Inject]
@@ -52,6 +52,11 @@ namespace ShootEmUp.Enemy
             OnEnemySpawned?.Invoke(enemyObject);
             await UniTask.WaitForSeconds(spawnCountdown);
             canSpawn = true;
+        }
+
+        public void SetSpawnCountdown(int spawnCountdown)
+        {
+            this.spawnCountdown = spawnCountdown;
         }
     }
 }

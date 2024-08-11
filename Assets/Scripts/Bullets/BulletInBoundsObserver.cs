@@ -4,7 +4,7 @@ using Zenject;
 
 namespace ShootEmUp.Bullets
 {
-    public class BulletInBoundsObserver : GameListener, IGameStartListener, IGameFinishListener
+    public sealed class BulletInBoundsObserver : GameListener, IGameStartListener, IGameFinishListener
     {
         private BulletDestroyer bulletDestroyer;
         private BulletInBoundsCheacker bulletInBoundsCheacker;

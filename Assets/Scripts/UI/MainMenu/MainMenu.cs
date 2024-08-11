@@ -7,7 +7,7 @@ using Zenject;
 
 namespace ShootEmUp.UI
 {
-    public class MainMenu : MonoBehaviour, IGameStartListener,IGamePauseListener,IGameResumeListener,IGameFinishListener
+    public sealed class MainMenu : MonoBehaviour, IGameStartListener,IGamePauseListener,IGameResumeListener,IGameFinishListener
     {
         [SerializeField] private GameObject startButton;
         [SerializeField] private GameObject resumeButton;

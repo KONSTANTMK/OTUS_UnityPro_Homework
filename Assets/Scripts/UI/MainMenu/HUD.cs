@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ShootEmUp.UI
 {
-    public class HUD : MonoBehaviour, IGameStartListener,IGamePauseListener,IGameResumeListener,IGameFinishListener
+    public sealed class HUD : MonoBehaviour, IGameStartListener,IGamePauseListener,IGameResumeListener,IGameFinishListener
     {
         [SerializeField] private GameObject pauseButton;
         public GameObject PauseButton => pauseButton;
