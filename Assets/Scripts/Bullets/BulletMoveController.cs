@@ -9,10 +9,8 @@ namespace ShootEmUp.Bullets
     public class BulletMoveController : MonoBehaviour,IGameFixedUpdateListener, IGamePauseListener, IGameResumeListener
 
     {
-        [FormerlySerializedAs("rigidbody")] [SerializeField]
-        private Rigidbody2D rigidbodyComponent;
-        [SerializeField]
-        private Vector2 savedVelocity;
+        [SerializeField] private Rigidbody2D rigidbodyComponent;
+        [SerializeField] private Vector2 savedVelocity;
 
         public void OnFixedUpdate(float deltaTime)
         {

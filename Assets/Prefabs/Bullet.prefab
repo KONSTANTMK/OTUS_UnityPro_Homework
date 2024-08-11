@@ -149,6 +149,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d48771ea4bc45b1b14e150975a566d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody: {fileID: 3555983760417175357}
+  rigidbodyComponent: {fileID: 3555983760417175357}
   savedVelocity: {x: 0, y: 0}
-  savedAngularVelocity: 0

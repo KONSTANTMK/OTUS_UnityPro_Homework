@@ -4,13 +4,15 @@ using UnityEngine;
 
 namespace ShootEmUp.Common
 {
-    public class Pool : MonoBehaviour,IGameFixedUpdateListener
+    public abstract class Pool : MonoBehaviour,IGameFixedUpdateListener
     {
         public HashSet<GameObject> ActiveEntities { get; } = new();
         public List<GameObject> CacheEntities { get; } = new();
         
-        [SerializeField] private GameObject prefab;
         [SerializeField] private int startInstantiateCount;
+        
+        [SerializeField] private GameObject prefab;
+        
         [SerializeField] private Transform poolContainer;
 
         private readonly Queue<GameObject> entityPool = new();

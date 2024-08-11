@@ -1,14 +1,21 @@
 ﻿using System;
 using UnityEngine;
 using ShootEmUp.Common;
+using Zenject;
 
 namespace ShootEmUp.Enemy
 {
-    public sealed class EnemyDestroyer : MonoBehaviour
+    public sealed class EnemyDestroyer : GameListener
     {
         public event Action<GameObject> OnEnemyDestroyed;
         
-        [SerializeField] private Pool enemyPool;
+        private EnemyPool enemyPool;
+        
+        [Inject]
+        public void Construct(EnemyPool enemyPool)
+        {
+            this.enemyPool = enemyPool;
+        }
         
         public void DestroyEnemy(GameObject enemy)
         {

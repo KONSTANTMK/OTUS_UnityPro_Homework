@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using ShootEmUp.Common;
 using ShootEmUp.GameSystem.Listeners;
@@ -7,41 +7,41 @@ using Zenject;
 
 namespace ShootEmUp.Enemy
 {
-    public sealed class EnemySpawner : MonoBehaviour, IGameStartListener,IGameFinishListener,IGamePauseListener,IGameResumeListener
+    public sealed class EnemySpawner : GameListener, IGameFixedUpdateListener
     {
         public event Action<GameObject> OnEnemySpawned;
         
-        [SerializeField] private EnemyPositions enemyPositions;
-        [SerializeField] private GameObject character;
-        [SerializeField] private Transform worldTransform;
-        [SerializeField] private Pool enemyPool;
-        [SerializeField] private int spawnCountdown;
-        private EnemySpawnObserver enemySpawnObserver;
+        private EnemyPositions enemyPositions;
+        private GameObject character;
+        private WorldTransform worldTransform;
+        private EnemyPool enemyPool;
+        private int spawnCountdown = 4;
+        private bool canSpawn = true;
         
         [Inject]
-        public void Construct(EnemySpawnObserver enemySpawnObserver)
+        public void Construct(
+            WorldTransform worldTransform,
+            Character.Character character,
+            EnemyPositions enemyPositions,
+            EnemyPool enemyPool
+            )
         {
-            this.enemySpawnObserver = enemySpawnObserver;
+            this.worldTransform = worldTransform;
+            this.character = character.gameObject;
+            this.enemyPositions = enemyPositions;
+            this.enemyPool = enemyPool;
         }
         
-        public void OnStartGame() => StartCoroutine("createEnemy");
-        public void OnFinishGame() => StopCoroutine("createEnemy");
-        public void OnPauseGame() => StopCoroutine("createEnemy");
-        public void OnResumeGame() => StartCoroutine("createEnemy");
-        
-        
-        private IEnumerator createEnemy()
+        public void OnFixedUpdate(float deltaTime)
         {
-            while (true)
-            {
-                yield return new WaitForSeconds(spawnCountdown);
-                SpawnEnemy();
-            }
+            if (canSpawn) SpawnEnemy();
         }
-        private void SpawnEnemy()
+        
+        private async void SpawnEnemy()
         {
             if (!enemyPool.TryDequeue(out GameObject enemyObject)) return;
-            enemyObject.transform.SetParent(worldTransform);
+            canSpawn = false;
+            enemyObject.transform.SetParent(worldTransform.GetTransfrom);
             var spawnPosition = enemyPositions.RandomSpawnPosition();
             enemyObject.transform.position = spawnPosition.position;
             var attackPosition = enemyPositions.RandomAttackPosition();
@@ -49,6 +49,8 @@ namespace ShootEmUp.Enemy
             enemyObject.GetComponent<EnemyAttackAgent>().SetTarget(character);
             enemyPool.ActiveEntities.Add(enemyObject);
             OnEnemySpawned?.Invoke(enemyObject);
+            await UniTask.WaitForSeconds(spawnCountdown);
+            canSpawn = true;
         }
     }
 }

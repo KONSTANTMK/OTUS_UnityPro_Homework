@@ -1,8 +1,10 @@
 using System;
 using UnityEngine;
 using ShootEmUp.Common;
+using ShootEmUp.Enemy;
 using ShootEmUp.GameSystem.Listeners;
 using ShootEmUp.Level;
+using Zenject;
 
 namespace ShootEmUp.Bullets
 {
@@ -10,7 +12,13 @@ namespace ShootEmUp.Bullets
     {
         public event Action<GameObject> OnBulletOutBounds;
         [SerializeField] private LevelBounds levelBounds;
-        [SerializeField] private Pool bulletPool;
+        private BulletPool bulletPool;
+        
+        [Inject]
+        public void Construct(BulletPool bulletPool)
+        {
+            this.bulletPool = bulletPool;
+        }
 
         public void OnFixedUpdate(float deltaTime)
         {

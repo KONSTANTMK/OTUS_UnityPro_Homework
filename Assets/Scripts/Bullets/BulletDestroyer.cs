@@ -2,7 +2,9 @@
 using System.Linq;
 using UnityEngine;
 using ShootEmUp.Common;
+using ShootEmUp.Enemy;
 using ShootEmUp.GameSystem.Listeners;
+using Zenject;
 
 namespace ShootEmUp.Bullets
 {
@@ -10,6 +12,12 @@ namespace ShootEmUp.Bullets
     {
         public event Action<GameObject> OnBulletDestroyed;
         [SerializeField] private Pool bulletPool;
+        
+        [Inject]
+        public void Construct(BulletPool bulletPool)
+        {
+            this.bulletPool = bulletPool;
+        }
         
         public void DestroyBullet(GameObject bullet)
         {
