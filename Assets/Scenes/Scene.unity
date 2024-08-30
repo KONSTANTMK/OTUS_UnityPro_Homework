@@ -312,11 +312,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddc4fc63662e4a8faaa427a3b410e3c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _xpBar: {fileID: 48335595}
-  _barForeground: {fileID: 290600086}
-  _xpValue: {fileID: 810505300}
-  _notFilledSprite: {fileID: 21300000, guid: c9ea6483ca2494ae892f993fec2cb4a6, type: 3}
-  _filledSprite: {fileID: 21300000, guid: ebca5e0b7178447bea6a7fe825585b0a, type: 3}
+  xpBar: {fileID: 48335595}
+  barForeground: {fileID: 290600086}
+  xpValue: {fileID: 810505300}
+  notFilledSprite: {fileID: 21300000, guid: c9ea6483ca2494ae892f993fec2cb4a6, type: 3}
+  filledSprite: {fileID: 21300000, guid: ebca5e0b7178447bea6a7fe825585b0a, type: 3}
 --- !u!114 &48335595
 MonoBehaviour:
   m_ObjectHideFlags: 0
