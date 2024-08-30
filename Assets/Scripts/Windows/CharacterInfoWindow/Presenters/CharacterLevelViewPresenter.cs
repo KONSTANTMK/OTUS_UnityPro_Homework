@@ -3,42 +3,36 @@ using UniRx;
 
 namespace Windows.CharacterInfoWindow.Presenters
 {
-    public interface ICharacterExperienceViewPresenter
+    public class CharacterExperienceViewPresenter : ICharacterExperienceViewPresenter
     {
-        IReadOnlyReactiveProperty<float> XpGainPart { get; }
-        IReadOnlyReactiveProperty<string> Experience { get; }
-    }
-    
-    public class DefaultCharacterExperienceViewPresenter : ICharacterExperienceViewPresenter
-    {
-        private readonly PlayerLevel _playerLevel;
-        private readonly FloatReactiveProperty _xpGainPart;
-        private readonly StringReactiveProperty _currentXpValue;
+        private readonly PlayerLevel playerLevel;
+        private readonly FloatReactiveProperty xpGainPart;
+        private readonly StringReactiveProperty currentXpValue;
 
-        public DefaultCharacterExperienceViewPresenter(PlayerLevel playerLevel)
+        public CharacterExperienceViewPresenter(PlayerLevel playerLevel)
         {
-            _playerLevel = playerLevel;
+            this.playerLevel = playerLevel;
 
-            _xpGainPart = 
-                new FloatReactiveProperty(_playerLevel.CurrentExperience / (float)_playerLevel.RequiredExperience);
-            _currentXpValue =
-                new StringReactiveProperty($"{_playerLevel.CurrentExperience}/{_playerLevel.RequiredExperience} XP");
+            xpGainPart = 
+                new FloatReactiveProperty(this.playerLevel.CurrentExperience / (float)this.playerLevel.RequiredExperience);
+            currentXpValue =
+                new StringReactiveProperty($"{this.playerLevel.CurrentExperience}/{this.playerLevel.RequiredExperience} XP");
 
-            _playerLevel.OnExperienceChanged += OnChangedExperience;
+            this.playerLevel.OnExperienceChanged += OnChangedExperience;
         }
 
-        ~DefaultCharacterExperienceViewPresenter()
+        ~CharacterExperienceViewPresenter()
         {
-            _playerLevel.OnExperienceChanged -= OnChangedExperience;
+            playerLevel.OnExperienceChanged -= OnChangedExperience;
         }
 
-        public IReadOnlyReactiveProperty<float> XpGainPart => _xpGainPart;
-        public IReadOnlyReactiveProperty<string> Experience => _currentXpValue;
+        public IReadOnlyReactiveProperty<float> XpGainPart => xpGainPart;
+        public IReadOnlyReactiveProperty<string> Experience => currentXpValue;
 
         private void OnChangedExperience(int _)
         {
-            _xpGainPart.Value = _playerLevel.CurrentExperience / (float)_playerLevel.RequiredExperience;
-            _currentXpValue.Value = $"{_playerLevel.CurrentExperience}/{_playerLevel.RequiredExperience}";
+            xpGainPart.Value = playerLevel.CurrentExperience / (float)playerLevel.RequiredExperience;
+            currentXpValue.Value = $"{playerLevel.CurrentExperience}/{playerLevel.RequiredExperience}";
         }
     }
 }

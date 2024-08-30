@@ -3,20 +3,21 @@ using Windows.Common;
 using TMPro;
 using UnityEngine;
 using UniRx;
+using UnityEngine.Serialization;
 
 namespace Windows.CharacterInfoWindow.Views
 {
     public class CharacterStatView : ReactiveView
     {
-        [SerializeField] private TMP_Text _description;
+        [SerializeField] private TMP_Text description;
 
-        private ICharacterStatViewPresenter _currentPresenter;
+        private ICharacterStatViewPresenter currentPresenter;
 
         public void Initialize(ICharacterStatViewPresenter presenter)
         {
             DisposeSubscriptions();
-            _currentPresenter = presenter;
-            SubscribeToPresenter(_currentPresenter);
+            currentPresenter = presenter;
+            SubscribeToPresenter(currentPresenter);
         }
 
         private void SubscribeToPresenter(ICharacterStatViewPresenter presenter)
@@ -26,7 +27,7 @@ namespace Windows.CharacterInfoWindow.Views
 
         private void OnLevelChanged(string newValue)
         {
-            _description.text = $"{_currentPresenter.Name}: {_currentPresenter.Level}";
+            description.text = $"{currentPresenter.Name}: {currentPresenter.Level}";
         }
     }
 }

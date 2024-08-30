@@ -3,36 +3,30 @@ using UniRx;
 
 namespace Windows.CharacterInfoWindow.Presenters
 {
-    public interface ICharacterStatViewPresenter
-    {
-        string Name { get; }
-        IReadOnlyReactiveProperty<string> Level { get; }
-    }
-    
     public class CharacterStatViewPresenter : ICharacterStatViewPresenter
     {
-        private readonly CharacterStat _stat;
-        private readonly StringReactiveProperty _level;
+        private readonly CharacterStat stat;
+        private readonly StringReactiveProperty level;
 
         public CharacterStatViewPresenter(CharacterStat stat)
         {
-            _stat = stat;
+            this.stat = stat;
 
-            Name = _stat.Name;
-            _level = new StringReactiveProperty(_stat.Value.ToString());
+            Name = this.stat.Name;
+            level = new StringReactiveProperty(this.stat.Value.ToString());
 
-            _stat.OnValueChanged += OnStatValueChanged;
+            this.stat.OnValueChanged += OnStatValueChanged;
         }
 
         ~CharacterStatViewPresenter()
         {
-            _stat.OnValueChanged -= OnStatValueChanged;
+            stat.OnValueChanged -= OnStatValueChanged;
         }
 
         public string Name { get; }
-        public IReadOnlyReactiveProperty<string> Level => _level;
+        public IReadOnlyReactiveProperty<string> Level => level;
 
         private void OnStatValueChanged(int newValue)
-            => _level.Value = newValue.ToString();
+            => level.Value = newValue.ToString();
     }
 }
