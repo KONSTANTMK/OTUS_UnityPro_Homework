@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Installers
 {
-    public class GameInstaller : MonoInstaller
+    public class SceneInstaller : MonoInstaller
     {
         [SerializeField] private CharacterInfoWindowModel characterInfoWindowModel;
         [SerializeField] private WindowOpenManager windowOpenManager;

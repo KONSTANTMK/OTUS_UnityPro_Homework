@@ -18,13 +18,13 @@ namespace Windows
         [Button]
         private void OpenCharacterInfo()
         {
-            characterInfoWindowAdapter.OpenPopup();
+            characterInfoWindowAdapter.OpenWindow();
         }
 
         [Button] 
         private void CloseCharacterInfo()
         {
-            characterInfoWindowAdapter.ClosePopup();
+            characterInfoWindowAdapter.CloseWindow();
         }
     }
 }
