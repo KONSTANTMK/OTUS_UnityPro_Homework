@@ -27,7 +27,7 @@ namespace Windows.CharacterInfoWindow.Views
 
         private void OnLevelChanged(string newValue)
         {
-            description.text = $"{currentPresenter.Name}: {currentPresenter.Level}";
+            description.text = newValue;
         }
     }
 }

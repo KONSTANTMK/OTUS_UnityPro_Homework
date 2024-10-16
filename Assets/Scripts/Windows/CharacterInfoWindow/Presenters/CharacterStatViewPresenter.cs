@@ -13,7 +13,7 @@ namespace Windows.CharacterInfoWindow.Presenters
             this.stat = stat;
 
             Name = this.stat.Name;
-            level = new StringReactiveProperty(this.stat.Value.ToString());
+            level = new StringReactiveProperty($"{this.stat.Name}: {this.stat.Value.ToString()}");
 
             this.stat.OnValueChanged += OnStatValueChanged;
         }
@@ -27,6 +27,6 @@ namespace Windows.CharacterInfoWindow.Presenters
         public IReadOnlyReactiveProperty<string> Level => level;
 
         private void OnStatValueChanged(int newValue)
-            => level.Value = newValue.ToString();
+            => level.Value = $"{stat.Name}: {newValue.ToString()}";
     }
 }
